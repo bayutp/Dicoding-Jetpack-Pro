@@ -1,4 +1,4 @@
-package com.bayuspace.academy.ui
+package com.bayuspace.academy.ui.reader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

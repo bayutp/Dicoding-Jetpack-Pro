@@ -1,4 +1,4 @@
-package com.bayuspace.academy.ui
+package com.bayuspace.academy.ui.detail
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,9 +17,10 @@ class DetailActivity : AppCompatActivity() {
         setContentView(_binding.root)
         setSupportActionBar(_binding.toolbar)
 
-        _binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    companion object{
+        const val EXTRA_COURSE = "extra_course"
     }
 }
