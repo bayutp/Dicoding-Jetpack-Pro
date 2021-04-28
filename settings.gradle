@@ -1,3 +1,4 @@
+include ':academy'
 rootProject.name='Dicoding Jetpack Pro'
 include ':app'
 include ':myviewmodel'
