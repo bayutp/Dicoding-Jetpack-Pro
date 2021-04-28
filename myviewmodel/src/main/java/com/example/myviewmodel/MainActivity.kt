@@ -2,39 +2,47 @@ package com.example.myviewmodel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.myviewmodel.databinding.ActivityMainBinding
 import com.example.myviewmodel.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var _binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        //mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         displayResult()
 
-        btn_calculate.setOnClickListener {
-            val width = edt_width.text.toString()
-            val length = edt_length.text.toString()
-            val height = edt_height.text.toString()
+        with(_binding) {
+            btnCalculate.setOnClickListener {
+                val width = edtWidth.text.toString()
+                val length = edtLength.text.toString()
+                val height = edtHeight.text.toString()
 
-            when{
-                width.isEmpty() -> edt_width.error = "Masih kosong"
-                length.isEmpty() -> edt_length.error = "Masih kosong"
-                height.isEmpty() -> edt_height.error = "Masih kosong"
-                else -> {
-                    mainViewModel.calculate(width, height, length)
-                    displayResult()
+                when {
+                    width.isEmpty() -> edtWidth.error = errMsg()
+                    length.isEmpty() -> edtLength.error = errMsg()
+                    height.isEmpty() -> edtHeight.error = errMsg()
+                    else -> {
+                        mainViewModel.calculate(width, height, length)
+                        displayResult()
+                    }
                 }
             }
+
         }
     }
 
-    private fun displayResult(){
-        tv_result.text = mainViewModel.result.toString()
+    private fun errMsg() = getString(R.string.err_msg)
+
+    private fun displayResult() {
+        _binding.tvResult.text = mainViewModel.result.toString()
     }
 }

@@ -5,4 +5,5 @@
     <string name="calculate">Hitung</string>
     <string name="height">Tinggi</string>
     <string name="length">Panjang</string>
+    <string name="err_msg">Masih Kosong</string>
 </resources>

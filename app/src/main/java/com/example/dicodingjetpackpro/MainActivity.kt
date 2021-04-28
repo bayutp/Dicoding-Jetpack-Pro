@@ -1,62 +1,68 @@
 package com.example.dicodingjetpackpro
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.example.dicodingjetpackpro.databinding.ActivityMainBinding
 import com.example.dicodingjetpackpro.model.CuboidModel
 import com.example.dicodingjetpackpro.viewmodel.CuboidViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: CuboidViewModel
+    private lateinit var _binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
 
         //declare view model
         viewModel = CuboidViewModel(CuboidModel())
 
         //setup listener
-        btn_save.setOnClickListener(this)
-        btn_calculate_circumference.setOnClickListener(this)
-        btn_calculate_surface_area.setOnClickListener(this)
-        btn_calculate_volume.setOnClickListener(this)
+        with(_binding) {
+            btnSave.setOnClickListener(this@MainActivity)
+            btnCalculateCircumference.setOnClickListener(this@MainActivity)
+            btnCalculateSurfaceArea.setOnClickListener(this@MainActivity)
+            btnCalculateVolume.setOnClickListener(this@MainActivity)
+        }
 
     }
 
     override fun onClick(v: View) {
-        val length = edt_length.text.toString().trim()
-        val width = edt_width.text.toString().trim()
-        val height = edt_height.text.toString().trim()
-        val errorMsg = "Field ini tidak boleh kosong"
+        with(_binding) {
+            val length = edtLength.text.toString().trim()
+            val width = edtWidth.text.toString().trim()
+            val height = edtHeight.text.toString().trim()
+            val errorMsg = "Field ini tidak boleh kosong"
 
-        when {
-            length.isEmpty() -> edt_length.error = errorMsg
-            width.isEmpty() -> edt_width.error = errorMsg
-            height.isEmpty() -> edt_height.error = errorMsg
-            else -> {
-                val l = length.toDouble()
-                val w = width.toDouble()
-                val h = height.toDouble()
+            when {
+                length.isEmpty() -> edtLength.error = errorMsg
+                width.isEmpty() -> edtWidth.error = errorMsg
+                height.isEmpty() -> edtHeight.error = errorMsg
+                else -> {
+                    val l = length.toDouble()
+                    val w = width.toDouble()
+                    val h = height.toDouble()
 
-                when (v.id) {
-                    R.id.btn_save -> {
-                        viewModel.save(l, w, h)
-                        visible()
-                    }
-                    R.id.btn_calculate_surface_area -> {
-                        tv_result.text = viewModel.getSurfaceArea().toString()
-                        gone()
-                    }
-                    R.id.btn_calculate_circumference -> {
-                        tv_result.text = viewModel.getCircumference().toString()
-                        gone()
-                    }
-                    R.id.btn_calculate_volume -> {
-                        tv_result.text = viewModel.getVolume().toString()
-                        gone()
+                    when (v.id) {
+                        R.id.btn_save -> {
+                            viewModel.save(l, w, h)
+                            visible()
+                        }
+                        R.id.btn_calculate_surface_area -> {
+                            tvResult.text = viewModel.getSurfaceArea().toString()
+                            gone()
+                        }
+                        R.id.btn_calculate_circumference -> {
+                            tvResult.text = viewModel.getCircumference().toString()
+                            gone()
+                        }
+                        R.id.btn_calculate_volume -> {
+                            tvResult.text = viewModel.getVolume().toString()
+                            gone()
+                        }
                     }
                 }
             }
@@ -64,16 +70,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun visible() {
-        btn_calculate_volume.visibility = View.VISIBLE
-        btn_calculate_circumference.visibility = View.VISIBLE
-        btn_calculate_surface_area.visibility = View.VISIBLE
-        btn_save.visibility = View.GONE
+        with(_binding) {
+            btnCalculateVolume.visibility = View.VISIBLE
+            btnCalculateCircumference.visibility = View.VISIBLE
+            btnCalculateSurfaceArea.visibility = View.VISIBLE
+            btnSave.visibility = View.GONE
+        }
     }
 
     private fun gone() {
-        btn_calculate_volume.visibility = View.GONE
-        btn_calculate_circumference.visibility = View.GONE
-        btn_calculate_surface_area.visibility = View.GONE
-        btn_save.visibility = View.VISIBLE
+        with(_binding) {
+            btnCalculateVolume.visibility = View.GONE
+            btnCalculateCircumference.visibility = View.GONE
+            btnCalculateSurfaceArea.visibility = View.GONE
+            btnSave.visibility = View.VISIBLE
+        }
     }
 }
