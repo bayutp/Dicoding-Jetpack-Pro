@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.academy.R
 import com.bayuspace.academy.databinding.FragmentBookmarkBinding
@@ -19,6 +20,10 @@ class BookmarkFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[BookmarkViewModel::class.java]
         bookmarkAdapter = BookmarkAdapter({ course ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_COURSE, course.courseId)
@@ -35,7 +40,7 @@ class BookmarkFragment : Fragment() {
             }
         }
 
-        val courses = DataDummy.generateDummyCourse()
+        val courses = viewModel.getBookmarks()
         bookmarkAdapter.setCourse(courses)
     }
 

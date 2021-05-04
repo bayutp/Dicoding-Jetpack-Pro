@@ -3,6 +3,7 @@ package com.bayuspace.academy.ui.reader
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.bayuspace.academy.R
 import com.bayuspace.academy.databinding.ActivityCourseReaderBinding
 import com.bayuspace.academy.ui.reader.content.ModuleContentFragment
@@ -13,16 +14,17 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityCourseReaderBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
+        setContentView(R.layout.activity_course_reader)
+
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
 
         val bundle = intent.extras
         if (bundle != null) {
             val courseId = bundle.getString(EXTRA_COURSE_ID)
-            Log.d("TAG", "courseId: $courseId")
             if (courseId != null)
+                viewModel.selectedCourse(courseId)
                 populateFragment()
         }
-        Log.d("TAG", "bundle: $bundle courseId: ${bundle?.getString(EXTRA_COURSE_ID)}")
     }
 
 
@@ -32,8 +34,7 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
 
     override fun moveTo(position: Int, moduleId: String) {
         val fragment = ModuleContentFragment.newInstance()
-        supportFragmentManager.beginTransaction()
-            .add(_binding.frameContainer.id, fragment, ModuleContentFragment.TAG)
+        supportFragmentManager.beginTransaction().add(R.id.frame_container, fragment, ModuleContentFragment.TAG)
             .addToBackStack(null)
             .commit()
     }
@@ -47,9 +48,9 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
     private fun populateFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         var fragment = supportFragmentManager.findFragmentByTag(ModuleListFragment.TAG)
-        if (fragment != null) {
+        if (fragment == null) {
             fragment = ModuleListFragment.newInstance()
-            fragmentTransaction.add(_binding.frameContainer.id, fragment, ModuleListFragment.TAG)
+            fragmentTransaction.add(R.id.frame_container, fragment, ModuleListFragment.TAG)
             fragmentTransaction.addToBackStack(null)
         }
         fragmentTransaction.commit()

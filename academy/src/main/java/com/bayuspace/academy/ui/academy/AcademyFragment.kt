@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.academy.R
 import com.bayuspace.academy.databinding.FragmentAcademyBinding
@@ -19,12 +20,13 @@ class AcademyFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[AcademyViewModel::class.java]
         academyAdapter = AcademyAdapter { course ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_COURSE, course.courseId)
             requireContext().startActivity(intent)
         }
-        val course = DataDummy.generateDummyCourse()
+        val course = viewModel.getCourses()
         academyAdapter.setCourse(course)
     }
 

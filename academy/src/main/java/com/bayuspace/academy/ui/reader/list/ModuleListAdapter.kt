@@ -1,5 +1,6 @@
 package com.bayuspace.academy.ui.reader.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,9 @@ class ModuleListAdapter(private val listener: (Int, ModuleEntity) -> Unit) :
         listModules.clear()
         listModules.addAll(modules)
         notifyDataSetChanged()
+        modules.forEach {
+            Log.d("TAG", "setModules: $it")
+        }
     }
 
     inner class ViewHolder(private val binding: ItemsModuleListCustomBinding) :
