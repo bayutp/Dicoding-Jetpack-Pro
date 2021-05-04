@@ -11,5 +11,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+
+        val pagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        _binding.viewPager.adapter = pagerAdapter
+        _binding.homeTab.setupWithViewPager(_binding.viewPager)
+
+        supportActionBar?.elevation = 0F
     }
 }
