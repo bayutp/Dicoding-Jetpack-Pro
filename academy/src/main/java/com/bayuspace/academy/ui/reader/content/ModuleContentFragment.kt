@@ -1,16 +1,15 @@
 package com.bayuspace.academy.ui.reader.content
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bayuspace.academy.R
-import com.bayuspace.academy.data.ContentEntity
 import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.databinding.FragmentModuleContentBinding
 import com.bayuspace.academy.ui.reader.CourseReaderViewModel
+import com.bayuspace.academy.viewmodel.ViewModelFactory
 
 class ModuleContentFragment : Fragment() {
 
@@ -20,7 +19,7 @@ class ModuleContentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         fragmentModuleContentBinding =
             FragmentModuleContentBinding.inflate(layoutInflater, container, false)
@@ -32,7 +31,7 @@ class ModuleContentFragment : Fragment() {
         if (activity != null) {
             viewModel = ViewModelProvider(
                 requireActivity(),
-                ViewModelProvider.NewInstanceFactory()
+                ViewModelFactory.getInstance(requireActivity())
             )[CourseReaderViewModel::class.java]
             val module = viewModel.getSelectedModule()
             populateWebView(module)

@@ -2,17 +2,17 @@ package com.bayuspace.academy.ui.bookmark
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.academy.R
 import com.bayuspace.academy.databinding.FragmentBookmarkBinding
 import com.bayuspace.academy.ui.detail.DetailActivity
-import com.bayuspace.academy.utils.DataDummy
+import com.bayuspace.academy.viewmodel.ViewModelFactory
 
 class BookmarkFragment : Fragment() {
 
@@ -22,7 +22,7 @@ class BookmarkFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            ViewModelFactory.getInstance(requireActivity())
         )[BookmarkViewModel::class.java]
         bookmarkAdapter = BookmarkAdapter({ course ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
@@ -47,7 +47,7 @@ class BookmarkFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
         if (activity != null) {

@@ -3,9 +3,10 @@ package com.bayuspace.academy.ui.detail
 import androidx.lifecycle.ViewModel
 import com.bayuspace.academy.data.CourseEntity
 import com.bayuspace.academy.data.ModuleEntity
+import com.bayuspace.academy.data.source.AcademyRepository
 import com.bayuspace.academy.utils.DataDummy
 
-class DetailCourseViewModel : ViewModel() {
+class DetailCourseViewModel(private val repo: AcademyRepository) : ViewModel() {
     private lateinit var courseId: String
 
     fun selectedCourse(courseId: String) {
@@ -13,15 +14,8 @@ class DetailCourseViewModel : ViewModel() {
     }
 
     fun getCourse(): CourseEntity {
-        lateinit var courseEntity: CourseEntity
-        val courseEntities = DataDummy.generateDummyCourse()
-        for (course in courseEntities) {
-            if (course.courseId == courseId) {
-                courseEntity = course
-            }
-        }
-        return courseEntity
+        return repo.getCourseWithModules(courseId)
     }
 
-    fun getModules(): List<ModuleEntity> = DataDummy.generateDummyModules(courseId)
+    fun getModules(): List<ModuleEntity> = repo.getAllModulesByCourse(courseId)
 }

@@ -14,6 +14,7 @@ import com.bayuspace.academy.databinding.ActivityDetailBinding
 import com.bayuspace.academy.databinding.ContainDetailCourseBinding
 import com.bayuspace.academy.ui.reader.CourseReaderActivity
 import com.bayuspace.academy.utils.DataDummy
+import com.bayuspace.academy.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -35,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         detailAdapter = DetailCourseAdapter()
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+        val viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[DetailCourseViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
