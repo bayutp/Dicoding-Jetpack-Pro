@@ -5,7 +5,7 @@ import com.bayuspace.academy.data.CourseEntity
 import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.data.source.remote.RemoteDataSource
 
-class AcademyRepository private constructor(private val remoteDataSource: RemoteDataSource) :
+open class AcademyRepository private constructor(private val remoteDataSource: RemoteDataSource) :
     AcademyDataSource {
     companion object {
         @Volatile
