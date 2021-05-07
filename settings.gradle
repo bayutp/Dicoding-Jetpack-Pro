@@ -1,3 +1,4 @@
+include ':samplelivadata'
 include ':academy'
 rootProject.name='Dicoding Jetpack Pro'
 include ':app'
