@@ -1,5 +1,6 @@
 package com.bayuspace.academy.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.bayuspace.academy.data.CourseEntity
 import com.bayuspace.academy.data.ModuleEntity
@@ -13,9 +14,9 @@ class DetailCourseViewModel(private val repo: AcademyRepository) : ViewModel() {
         this.courseId = courseId
     }
 
-    fun getCourse(): CourseEntity {
+    fun getCourse(): LiveData<CourseEntity> {
         return repo.getCourseWithModules(courseId)
     }
 
-    fun getModules(): List<ModuleEntity> = repo.getAllModulesByCourse(courseId)
+    fun getModules(): LiveData<List<ModuleEntity>> = repo.getAllModulesByCourse(courseId)
 }

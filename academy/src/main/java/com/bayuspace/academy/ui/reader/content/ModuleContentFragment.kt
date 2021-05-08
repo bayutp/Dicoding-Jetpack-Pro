@@ -33,8 +33,11 @@ class ModuleContentFragment : Fragment() {
                 requireActivity(),
                 ViewModelFactory.getInstance(requireActivity())
             )[CourseReaderViewModel::class.java]
-            val module = viewModel.getSelectedModule()
-            populateWebView(module)
+            fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getSelectedModule().observe(requireActivity(), {
+                fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                populateWebView(it)
+            })
         }
     }
 

@@ -1,5 +1,6 @@
 package com.bayuspace.academy.ui.reader
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.bayuspace.academy.data.ContentEntity
 import com.bayuspace.academy.data.ModuleEntity
@@ -18,9 +19,9 @@ class CourseReaderViewModel(private val repo: AcademyRepository) : ViewModel() {
         this.moduleId = moduleId
     }
 
-    fun getModules() = repo.getAllModulesByCourse(courseId)
+    fun getModules() : LiveData<List<ModuleEntity>> = repo.getAllModulesByCourse(courseId)
 
-    fun getSelectedModule(): ModuleEntity {
+    fun getSelectedModule(): LiveData<ModuleEntity> {
         return repo.getContent(courseId, moduleId)
     }
 }
