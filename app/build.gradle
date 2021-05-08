@@ -56,4 +56,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
     testImplementation 'org.mockito:mockito-inline:3.2.4'
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 }

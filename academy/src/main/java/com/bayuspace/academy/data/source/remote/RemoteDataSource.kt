@@ -7,7 +7,7 @@ import com.bayuspace.academy.data.source.remote.response.CourseResponse
 import com.bayuspace.academy.data.source.remote.response.ModuleResponse
 import com.bayuspace.academy.utils.JsonHelper
 
-class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
+open class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
 
     private val handler = Handler(Looper.getMainLooper())
 
