@@ -12,6 +12,7 @@ import com.bayuspace.restoranlivedatawithapi.R
 import com.bayuspace.restoranlivedatawithapi.databinding.ActivityMainBinding
 import com.bayuspace.restoranlivedatawithapi.ui.viewmodel.MainViewModel
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
@@ -59,6 +60,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.error.observe(this, {
             Toast.makeText(this@MainActivity, "Error : $it", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.textSnackbar.observe(this, {
+            it.getContentIfNotHandled()?.let { msg ->
+                Snackbar.make(window.decorView.rootView, msg, Snackbar.LENGTH_SHORT).show()
+            }
         })
     }
 }

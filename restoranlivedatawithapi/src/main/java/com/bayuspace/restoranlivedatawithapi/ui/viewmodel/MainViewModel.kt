@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bayuspace.restoranlivedatawithapi.Event
 import com.bayuspace.restoranlivedatawithapi.data.CustomerReviewsItem
 import com.bayuspace.restoranlivedatawithapi.data.Restaurant
 import com.bayuspace.restoranlivedatawithapi.data.RestaurantResponse
@@ -25,6 +26,9 @@ class MainViewModel : ViewModel() {
 
     private var _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
+
+    private var _textSnackbar = MutableLiveData<Event<String>>()
+    val textSnackbar: LiveData<Event<String>> = _textSnackbar
 
     companion object {
         private const val TAG = "Main View Model"
@@ -73,6 +77,7 @@ class MainViewModel : ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _listReview.value = response.body()?.customerReviews
+                    _textSnackbar.value = Event(response.body()?.message.toString())
                 } else Log.d(TAG, "onResponse: not successfully : ${response.body()?.message}")
             }
 
