@@ -5,6 +5,7 @@ import android.os.Looper
 import com.bayuspace.academy.data.source.remote.response.ContentResponse
 import com.bayuspace.academy.data.source.remote.response.CourseResponse
 import com.bayuspace.academy.data.source.remote.response.ModuleResponse
+import com.bayuspace.academy.utils.EspressoIdlingResources
 import com.bayuspace.academy.utils.JsonHelper
 
 open class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -24,22 +25,34 @@ open class RemoteDataSource private constructor(private val jsonHelper: JsonHelp
     }
 
     fun getAllCourses(callback: LoadCourseCallback) {
+        EspressoIdlingResources.increment()
         handler.postDelayed(
-            { callback.onAllCoursesReceived(jsonHelper.loadCourses()) },
+            {
+                callback.onAllCoursesReceived(jsonHelper.loadCourses())
+                EspressoIdlingResources.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
     }
 
     fun getModule(courseId: String, callback: LoadModuleCallback) {
+        EspressoIdlingResources.increment()
         handler.postDelayed(
-            { callback.onAllModulesReceived(jsonHelper.loadModule(courseId)) },
+            {
+                callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
+                EspressoIdlingResources.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
     }
 
     fun getContent(moduleId: String, callback: LoadContentCallback) {
+        EspressoIdlingResources.increment()
         handler.postDelayed(
-            { callback.onContentReceived(jsonHelper.loadContent(moduleId)) },
+            {
+                callback.onContentReceived(jsonHelper.loadContent(moduleId))
+                EspressoIdlingResources.decrement()
+            },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
     }
