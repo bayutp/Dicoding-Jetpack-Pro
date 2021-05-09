@@ -2,6 +2,7 @@ package com.bayuspace.academy.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -36,16 +37,27 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         detailAdapter = DetailCourseAdapter()
 
-        val viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[DetailCourseViewModel::class.java]
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory.getInstance(this)
+        )[DetailCourseViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
             val courseId = extras.getString(EXTRA_COURSE)
             if (courseId != null) {
-                viewModel.selectedCourse(courseId)
-                val module = viewModel.getModules()
-                detailAdapter.setModule(module)
-                populateCourse(viewModel.getCourse())
+                _containBinding.progressBar.visibility = View.VISIBLE
+                viewModel.apply {
+                    selectedCourse(courseId)
+                    getModules().observe(this@DetailActivity, {
+                        _containBinding.progressBar.visibility = View.GONE
+                        detailAdapter.setModule(it)
+                    })
+                    getCourse().observe(this@DetailActivity, {
+                        _containBinding.progressBar.visibility = View.GONE
+                        populateCourse(it)
+                    })
+                }
             }
         }
 

@@ -10,18 +10,7 @@ import com.bayuspace.academy.data.source.remote.response.ContentResponse
 import com.bayuspace.academy.data.source.remote.response.CourseResponse
 import com.bayuspace.academy.data.source.remote.response.ModuleResponse
 
-open class AcademyRepository private constructor(private val remoteDataSource: RemoteDataSource) :
-    AcademyDataSource {
-    companion object {
-        @Volatile
-        private var instance: AcademyRepository? = null
-
-        fun getInstance(remoteDataSource: RemoteDataSource): AcademyRepository =
-            instance ?: synchronized(this) {
-                instance ?: AcademyRepository(remoteDataSource).apply { instance = this }
-            }
-    }
-
+class FakeAcademyRepository(private val remoteDataSource: RemoteDataSource) : AcademyDataSource {
     override fun getAllCourses(): LiveData<List<CourseEntity>> {
         val courseResult = MutableLiveData<List<CourseEntity>>()
         remoteDataSource.getAllCourses(object : RemoteDataSource.LoadCourseCallback {

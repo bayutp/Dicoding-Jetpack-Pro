@@ -22,7 +22,7 @@ class ModuleListFragment : Fragment() {
     private lateinit var binding: FragmentModuleListBinding
     private lateinit var moduleListAdapter: ModuleListAdapter
     private lateinit var courseListCallback: CourseReaderCallback
-    private lateinit var viewModel : CourseReaderViewModel
+    private lateinit var viewModel: CourseReaderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,12 +35,19 @@ class ModuleListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity()))[CourseReaderViewModel::class.java]
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelFactory.getInstance(requireActivity())
+        )[CourseReaderViewModel::class.java]
         moduleListAdapter = ModuleListAdapter { position, data ->
             courseListCallback.moveTo(position, data.moduleId)
             viewModel.selectedModule(data.moduleId)
         }
-        populateRecyclerView(viewModel.getModules())
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getModules().observe(requireActivity(), {
+            binding.progressBar.visibility = View.GONE
+            populateRecyclerView(it)
+        })
     }
 
     override fun onAttach(context: Context) {

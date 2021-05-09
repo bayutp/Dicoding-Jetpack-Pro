@@ -17,9 +17,19 @@ import com.bayuspace.academy.viewmodel.ViewModelFactory
 class BookmarkFragment : Fragment() {
 
     private lateinit var bookmarkAdapter: BookmarkAdapter
+    private lateinit var _binding: FragmentBookmarkBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
+        return _binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val viewModel = ViewModelProvider(
             this,
             ViewModelFactory.getInstance(requireActivity())
@@ -40,23 +50,17 @@ class BookmarkFragment : Fragment() {
             }
         }
 
-        val courses = viewModel.getBookmarks()
-        bookmarkAdapter.setCourse(courses)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        val binding = FragmentBookmarkBinding.inflate(layoutInflater, container, false)
+        _binding.progressBar.visibility = View.VISIBLE
+        viewModel.getBookmarks().observe(requireActivity(), {
+            _binding.progressBar.visibility = View.GONE
+            bookmarkAdapter.setCourse(it)
+        })
         if (activity != null) {
-            with(binding.rvBookmark) {
+            with(_binding.rvBookmark) {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = bookmarkAdapter
             }
         }
-        return binding.root
     }
 }
