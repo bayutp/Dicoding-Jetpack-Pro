@@ -3,19 +3,18 @@ package com.bayuspace.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.academy.R
-import com.bayuspace.academy.data.CourseEntity
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.databinding.ActivityDetailBinding
 import com.bayuspace.academy.databinding.ContainDetailCourseBinding
 import com.bayuspace.academy.ui.reader.CourseReaderActivity
-import com.bayuspace.academy.utils.DataDummy
 import com.bayuspace.academy.viewmodel.ViewModelFactory
+import com.bayuspace.academy.vo.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -49,13 +48,32 @@ class DetailActivity : AppCompatActivity() {
                 _containBinding.progressBar.visibility = View.VISIBLE
                 viewModel.apply {
                     selectedCourse(courseId)
-                    getModules().observe(this@DetailActivity, {
-                        _containBinding.progressBar.visibility = View.GONE
-                        detailAdapter.setModule(it)
-                    })
-                    getCourse().observe(this@DetailActivity, {
-                        _containBinding.progressBar.visibility = View.GONE
-                        populateCourse(it)
+                    courseModule.observe(this@DetailActivity, {
+                        if (it != null) {
+                            when (it.status) {
+                                Status.LOADING -> _containBinding.progressBar.visibility =
+                                    View.VISIBLE
+                                Status.SUCCESS -> {
+                                    _containBinding.progressBar.visibility = View.GONE
+
+                                    it.data?.mModules?.let { modules ->
+                                        detailAdapter.setModule(
+                                            modules
+                                        )
+                                    }
+                                    it.data?.mCourse?.let { course -> populateCourse(course) }
+                                }
+                                Status.ERROR -> {
+                                    _containBinding.progressBar.visibility = View.GONE
+                                    Toast.makeText(
+                                        this@DetailActivity,
+                                        "Terjadi kesalahan",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                            }
+                        }
                     })
                 }
             }

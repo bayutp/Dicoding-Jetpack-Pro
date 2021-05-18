@@ -1,7 +1,7 @@
 package com.bayuspace.academy.data.source.remote.response
 
 import android.os.Parcelable
-import com.bayuspace.academy.data.CourseEntity
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -3,9 +3,6 @@ package com.bayuspace.academy.ui.reader
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.bayuspace.academy.data.ContentEntity
-import com.bayuspace.academy.data.CourseEntity
-import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.data.source.AcademyRepository
 import com.bayuspace.academy.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify

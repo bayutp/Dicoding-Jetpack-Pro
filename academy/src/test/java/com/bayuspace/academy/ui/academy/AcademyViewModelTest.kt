@@ -3,11 +3,8 @@ package com.bayuspace.academy.ui.academy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.bayuspace.academy.data.CourseEntity
 import com.bayuspace.academy.data.source.AcademyRepository
-import com.bayuspace.academy.data.source.remote.RemoteDataSource
 import com.bayuspace.academy.utils.DataDummy
-import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -17,7 +14,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 

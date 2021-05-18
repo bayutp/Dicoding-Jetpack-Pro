@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bayuspace.academy.data.ModuleEntity
+import com.bayuspace.academy.data.source.local.entity.ModuleEntity
 import com.bayuspace.academy.databinding.FragmentModuleContentBinding
 import com.bayuspace.academy.ui.reader.CourseReaderViewModel
 import com.bayuspace.academy.viewmodel.ViewModelFactory
+import com.bayuspace.academy.vo.Status
 
 class ModuleContentFragment : Fragment() {
 
@@ -34,9 +36,31 @@ class ModuleContentFragment : Fragment() {
                 ViewModelFactory.getInstance(requireActivity())
             )[CourseReaderViewModel::class.java]
             fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getSelectedModule().observe(requireActivity(), {
-                fragmentModuleContentBinding.progressBar.visibility = View.GONE
-                populateWebView(it)
+            viewModel.selectedModule.observe(requireActivity(), {
+                if (it != null) {
+                    when (it.status) {
+                        Status.LOADING -> fragmentModuleContentBinding.progressBar.visibility =
+                            View.GONE
+                        Status.SUCCESS -> {
+                            if (it.data != null) {
+                                fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                                if (it.data.contentEntity != null) {
+                                    populateWebView(it.data)
+                                }
+                                //setButtonNextPrevState(it.data)
+                                if (!it.data.read) viewModel.readContent(it.data)
+                            }
+                        }
+                        Status.ERROR -> {
+                            fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                requireContext(),
+                                "Terjadi kesalahan",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             })
         }
     }

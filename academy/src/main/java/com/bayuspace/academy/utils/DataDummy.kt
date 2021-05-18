@@ -1,7 +1,7 @@
 package com.bayuspace.academy.utils
 
-import com.bayuspace.academy.data.CourseEntity
-import com.bayuspace.academy.data.ModuleEntity
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
+import com.bayuspace.academy.data.source.local.entity.ModuleEntity
 import com.bayuspace.academy.data.source.remote.response.ContentResponse
 import com.bayuspace.academy.data.source.remote.response.CourseResponse
 import com.bayuspace.academy.data.source.remote.response.ModuleResponse
@@ -15,7 +15,8 @@ object DataDummy {
             "Dicoding sebagai satu-satunya Google Authorized Training Partner di Indonesia telah melalui proses penyusunan kurikulum secara komprehensif. Semua modul telah diverifikasi langsung oleh Google untuk memastikan bahwa materi yang diajarkan relevan dan sesuai dengan kebutuhan industri digital saat ini. Peserta akan belajar membangun aplikasi Android dengan materi Testing, Debugging, Application, Application UX, Fundamental Application Components, Persistent Data Storage, dan Enhanced System Integration.",
             "100 Hari",
             false,
-            "https://www.dicoding.com/images/small/academy/menjadi_android_developer_expert_logo_070119140352.jpg"))
+            "https://www.dicoding.com/images/small/academy/menjadi_android_developer_expert_logo_070119140352.jpg")
+        )
         courses.add(CourseEntity("a55",
             "Kotlin Android Developer Expert",
             "Pada Google I/O 2017, Kotlin diumumkan sebagai bahasa pemrograman yang termasuk dalam bahasa kelas satu (First class) yang didukung untuk pembuatan aplikasi Android, selain Java dan C++. Kotlin adalah bahasa pemrograman yang dibuat oleh JetBrains. Google juga akan memastikan bahwa semua fitur baru di Android, framework, IDE dan keseluruhan library, akan dapat bekerja dan terintegrasi baik dengan bahasa pemrograman Kotlin serta interopable dengan fungsi-fungsi Java yang telah ada sehingga memungkinkan para engineer melakukan perubahan bagian tertentu aplikasi dari Java ke Kotlin dan sebaliknya dengan sangat mudah.",

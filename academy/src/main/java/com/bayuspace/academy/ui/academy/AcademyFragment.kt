@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.academy.databinding.FragmentAcademyBinding
 import com.bayuspace.academy.ui.detail.DetailActivity
 import com.bayuspace.academy.viewmodel.ViewModelFactory
+import com.bayuspace.academy.vo.Status
 
 class AcademyFragment : Fragment() {
     private lateinit var academyAdapter: AcademyAdapter
@@ -38,8 +40,21 @@ class AcademyFragment : Fragment() {
         }
         _binding.progressBar.visibility = View.VISIBLE
         viewModel.getCourses().observe(requireActivity(), {
-            _binding.progressBar.visibility = View.GONE
-            academyAdapter.setCourse(it)
+            if (it != null) {
+                when (it.status) {
+                    Status.LOADING -> _binding.progressBar.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        _binding.progressBar.visibility = View.GONE
+                        academyAdapter.setCourse(it.data!!)
+                    }
+                    Status.ERROR -> {
+                        _binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+            }
         })
         if (activity != null) {
             with(_binding.rvAcademy) {

@@ -1,27 +1,71 @@
 package com.bayuspace.academy.ui.reader
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.bayuspace.academy.data.ContentEntity
-import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.data.source.AcademyRepository
-import com.bayuspace.academy.utils.DataDummy
+import com.bayuspace.academy.data.source.local.entity.ModuleEntity
+import com.bayuspace.academy.vo.Resource
 
 class CourseReaderViewModel(private val repo: AcademyRepository) : ViewModel() {
-    private lateinit var courseId: String
-    private lateinit var moduleId: String
+    var courseId = MutableLiveData<String>()
+    var moduleId = MutableLiveData<String>()
 
     fun selectedCourse(courseId: String) {
-        this.courseId = courseId
+        this.courseId.value = courseId
     }
 
     fun selectedModule(moduleId: String) {
-        this.moduleId = moduleId
+        this.moduleId.value = moduleId
     }
 
-    fun getModules() : LiveData<List<ModuleEntity>> = repo.getAllModulesByCourse(courseId)
+    var modules: LiveData<Resource<List<ModuleEntity>>> =
+        Transformations.switchMap(courseId) { mCourseId ->
+            repo.getAllModulesByCourse(mCourseId)
+        }
 
-    fun getSelectedModule(): LiveData<ModuleEntity> {
-        return repo.getContent(courseId, moduleId)
+    var selectedModule: LiveData<Resource<ModuleEntity>> =
+        Transformations.switchMap(moduleId) { mModuleId ->
+            repo.getContent(mModuleId)
+        }
+
+    fun readContent(moduleEntity: ModuleEntity) {
+        repo.setReadModule(moduleEntity)
+    }
+
+    fun getModuleSize(): Int {
+        return if (modules.value != null) {
+            val moduleEntities = modules.value?.data
+            moduleEntities?.size ?: 0
+        } else 0
+    }
+
+    fun nextPage() {
+        if (selectedModule.value != null && modules.value != null) {
+            val moduleEntity = selectedModule.value?.data
+            val moduleEntities = modules.value?.data
+
+            if (moduleEntity != null && moduleEntities != null) {
+                val position = moduleEntity.position
+                if (position < moduleEntities.size && position >= 0) {
+                    moduleId.value = moduleEntities[position + 1].moduleId
+                }
+            }
+        }
+    }
+
+    fun prevPage() {
+        if (selectedModule.value != null && modules.value != null) {
+            val moduleEntity = selectedModule.value?.data
+            val moduleEntities = modules.value?.data
+
+            if (moduleEntity != null && moduleEntities != null) {
+                val position = moduleEntity.position
+                if (position < moduleEntities.size && position >= 0) {
+                    moduleId.value = moduleEntities[position - 1].moduleId
+                }
+            }
+        }
     }
 }

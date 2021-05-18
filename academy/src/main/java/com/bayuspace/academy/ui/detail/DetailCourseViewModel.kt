@@ -1,22 +1,37 @@
 package com.bayuspace.academy.ui.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.bayuspace.academy.data.CourseEntity
-import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.data.source.AcademyRepository
-import com.bayuspace.academy.utils.DataDummy
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
+import com.bayuspace.academy.data.source.local.entity.CourseWithModule
+import com.bayuspace.academy.vo.Resource
 
 class DetailCourseViewModel(private val repo: AcademyRepository) : ViewModel() {
-    private lateinit var courseId: String
+    val courseId = MutableLiveData<String>()
 
     fun selectedCourse(courseId: String) {
-        this.courseId = courseId
+        this.courseId.value = courseId
     }
 
-    fun getCourse(): LiveData<CourseEntity> {
-        return repo.getCourseWithModules(courseId)
-    }
+    var courseModule: LiveData<Resource<CourseWithModule>> =
+        Transformations.switchMap(courseId) { mCourseId ->
+            repo.getCourseWithModules(mCourseId)
+        }
 
-    fun getModules(): LiveData<List<ModuleEntity>> = repo.getAllModulesByCourse(courseId)
+
+    fun setBookmark() {
+        val moduleResource = courseModule.value
+        if (moduleResource != null) {
+            val courseWithModule = moduleResource.data
+
+            if (courseWithModule != null) {
+                val courseEntity = courseWithModule.mCourse
+                val state = !courseEntity.bookmark
+                repo.setCourseBookmark(courseEntity, state)
+            }
+        }
+    }
 }

@@ -2,9 +2,6 @@ package com.bayuspace.academy.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bayuspace.academy.data.ContentEntity
-import com.bayuspace.academy.data.CourseEntity
-import com.bayuspace.academy.data.ModuleEntity
 import com.bayuspace.academy.data.source.remote.RemoteDataSource
 import com.bayuspace.academy.data.source.remote.response.ContentResponse
 import com.bayuspace.academy.data.source.remote.response.CourseResponse

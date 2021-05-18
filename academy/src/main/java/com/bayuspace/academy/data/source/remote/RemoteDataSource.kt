@@ -2,6 +2,8 @@ package com.bayuspace.academy.data.source.remote
 
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.bayuspace.academy.data.source.remote.response.ContentResponse
 import com.bayuspace.academy.data.source.remote.response.CourseResponse
 import com.bayuspace.academy.data.source.remote.response.ModuleResponse
@@ -24,49 +26,43 @@ open class RemoteDataSource private constructor(private val jsonHelper: JsonHelp
             }
     }
 
-    fun getAllCourses(callback: LoadCourseCallback) {
+    fun getAllCourses(): LiveData<ApiResponse<List<CourseResponse>>> {
         EspressoIdlingResources.increment()
+        val courseResult = MutableLiveData<ApiResponse<List<CourseResponse>>>()
         handler.postDelayed(
             {
-                callback.onAllCoursesReceived(jsonHelper.loadCourses())
+                courseResult.value = ApiResponse.success(jsonHelper.loadCourses())
                 EspressoIdlingResources.decrement()
             },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
+        return courseResult
     }
 
-    fun getModule(courseId: String, callback: LoadModuleCallback) {
+    fun getModule(courseId: String): LiveData<ApiResponse<List<ModuleResponse>>> {
         EspressoIdlingResources.increment()
+        val moduleResult = MutableLiveData<ApiResponse<List<ModuleResponse>>>()
         handler.postDelayed(
             {
-                callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
+                moduleResult.value = ApiResponse.success(jsonHelper.loadModule(courseId))
                 EspressoIdlingResources.decrement()
             },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
+        return moduleResult
     }
 
-    fun getContent(moduleId: String, callback: LoadContentCallback) {
+    fun getContent(moduleId: String): LiveData<ApiResponse<ContentResponse>> {
         EspressoIdlingResources.increment()
+        val contentResult = MutableLiveData<ApiResponse<ContentResponse>>()
         handler.postDelayed(
             {
-                callback.onContentReceived(jsonHelper.loadContent(moduleId))
+                contentResult.value = ApiResponse.success(jsonHelper.loadContent(moduleId)!!)
                 EspressoIdlingResources.decrement()
             },
             SERVICE_LATENCY_IN_MILLIS.toLong()
         )
-    }
-
-    interface LoadCourseCallback {
-        fun onAllCoursesReceived(data: List<CourseResponse>)
-    }
-
-    interface LoadModuleCallback {
-        fun onAllModulesReceived(data: List<ModuleResponse>)
-    }
-
-    interface LoadContentCallback {
-        fun onContentReceived(data: ContentResponse?)
+        return contentResult
     }
 
 }
