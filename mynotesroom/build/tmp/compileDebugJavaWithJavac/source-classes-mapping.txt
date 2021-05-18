@@ -1,0 +1,17 @@
+com/bayuspace/mynotesroom/BuildConfig.java
+ com.bayuspace.mynotesroom.BuildConfig
+com/bayuspace/mynotesroom/databinding/ActivityMainBinding.java
+ com.bayuspace.mynotesroom.databinding.ActivityMainBinding
+com/bayuspace/mynotesroom/databinding/ItemNoteBinding.java
+ com.bayuspace.mynotesroom.databinding.ItemNoteBinding
+com/bayuspace/mynotesroom/database/NoteDao_Impl.java
+ com.bayuspace.mynotesroom.database.NoteDao_Impl
+ com.bayuspace.mynotesroom.database.NoteDao_Impl$1
+ com.bayuspace.mynotesroom.database.NoteDao_Impl$2
+ com.bayuspace.mynotesroom.database.NoteDao_Impl$3
+ com.bayuspace.mynotesroom.database.NoteDao_Impl$4
+com/bayuspace/mynotesroom/database/AppDatabase_Impl.java
+ com.bayuspace.mynotesroom.database.AppDatabase_Impl
+ com.bayuspace.mynotesroom.database.AppDatabase_Impl$1
+com/bayuspace/mynotesroom/databinding/ActivityNoteAddUpdateBinding.java
+ com.bayuspace.mynotesroom.databinding.ActivityNoteAddUpdateBinding

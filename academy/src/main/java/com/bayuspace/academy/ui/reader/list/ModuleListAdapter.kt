@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bayuspace.academy.data.ModuleEntity
+import com.bayuspace.academy.data.source.local.entity.ModuleEntity
 import com.bayuspace.academy.databinding.ItemsModuleListCustomBinding
 
 class ModuleListAdapter(private val listener: (Int, ModuleEntity) -> Unit) :

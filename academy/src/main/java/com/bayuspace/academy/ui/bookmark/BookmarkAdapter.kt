@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bayuspace.academy.R
-import com.bayuspace.academy.data.CourseEntity
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.databinding.ItemsBookmarkBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

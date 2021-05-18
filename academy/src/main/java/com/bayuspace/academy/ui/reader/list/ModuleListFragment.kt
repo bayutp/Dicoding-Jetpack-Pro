@@ -6,16 +6,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bayuspace.academy.data.ModuleEntity
+import com.bayuspace.academy.data.source.local.entity.ModuleEntity
 import com.bayuspace.academy.databinding.FragmentModuleListBinding
 import com.bayuspace.academy.ui.reader.CourseReaderActivity
 import com.bayuspace.academy.ui.reader.CourseReaderCallback
 import com.bayuspace.academy.ui.reader.CourseReaderViewModel
 import com.bayuspace.academy.viewmodel.ViewModelFactory
+import com.bayuspace.academy.vo.Status
 
 class ModuleListFragment : Fragment() {
 
@@ -44,9 +46,21 @@ class ModuleListFragment : Fragment() {
             viewModel.selectedModule(data.moduleId)
         }
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getModules().observe(requireActivity(), {
-            binding.progressBar.visibility = View.GONE
-            populateRecyclerView(it)
+        viewModel.modules.observe(requireActivity(), {
+            if (it != null) {
+                when (it.status) {
+                    Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        binding.progressBar.visibility = View.GONE
+                        populateRecyclerView(it.data as List<ModuleEntity>)
+                    }
+                    Status.ERROR -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
         })
     }
 
