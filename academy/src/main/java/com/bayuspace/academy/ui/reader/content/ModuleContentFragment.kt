@@ -47,7 +47,7 @@ class ModuleContentFragment : Fragment() {
                                 if (it.data.contentEntity != null) {
                                     populateWebView(it.data)
                                 }
-                                //setButtonNextPrevState(it.data)
+                                setButtonNextPrevState(it.data)
                                 if (!it.data.read) viewModel.readContent(it.data)
                             }
                         }
@@ -62,6 +62,8 @@ class ModuleContentFragment : Fragment() {
                     }
                 }
             })
+            fragmentModuleContentBinding.btnNext.setOnClickListener { viewModel.nextPage() }
+            fragmentModuleContentBinding.btnPrev.setOnClickListener { viewModel.prevPage() }
         }
     }
 
@@ -71,6 +73,25 @@ class ModuleContentFragment : Fragment() {
             "text/html",
             "UTF-8"
         )
+    }
+
+    private fun setButtonNextPrevState(module: ModuleEntity) {
+        if (activity != null) {
+            when (module.position) {
+                0 -> {
+                    fragmentModuleContentBinding.btnPrev.isEnabled = false
+                    fragmentModuleContentBinding.btnNext.isEnabled = true
+                }
+                viewModel.getModuleSize() - 1 -> {
+                    fragmentModuleContentBinding.btnPrev.isEnabled = true
+                    fragmentModuleContentBinding.btnNext.isEnabled = false
+                }
+                else -> {
+                    fragmentModuleContentBinding.btnPrev.isEnabled = true
+                    fragmentModuleContentBinding.btnNext.isEnabled = true
+                }
+            }
+        }
     }
 
     companion object {
