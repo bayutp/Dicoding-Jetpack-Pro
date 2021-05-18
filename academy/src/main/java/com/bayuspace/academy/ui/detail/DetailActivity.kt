@@ -2,9 +2,12 @@ package com.bayuspace.academy.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +27,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityDetailBinding
     private lateinit var _containBinding: ContainDetailCourseBinding
     private lateinit var detailAdapter: DetailCourseAdapter
+    private lateinit var viewModel: DetailCourseViewModel
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         detailAdapter = DetailCourseAdapter()
 
-        val viewModel = ViewModelProvider(
+        viewModel = ViewModelProvider(
             this,
             ViewModelFactory.getInstance(this)
         )[DetailCourseViewModel::class.java]
@@ -111,6 +116,42 @@ class DetailActivity : AppCompatActivity() {
             intent.putExtra(CourseReaderActivity.EXTRA_COURSE_ID, courseEntity.courseId)
             startActivity(intent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        viewModel.courseModule.observe(this) {
+            if (it != null) {
+                when (it.status) {
+                    Status.LOADING -> _containBinding.progressBar.visibility = View.VISIBLE
+                    Status.SUCCESS -> if (it.data != null) {
+                        _containBinding.progressBar.visibility = View.GONE
+                        val state = it.data.mCourse.bookmark
+                        setBookmarkState(state)
+                    }
+                    Status.ERROR -> {
+                        _containBinding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        return true
+    }
+
+    private fun setBookmarkState(state: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_bookmark)
+        menuItem?.icon = if (state) ContextCompat.getDrawable(this, R.drawable.ic_bookmarked)
+        else ContextCompat.getDrawable(this, R.drawable.ic_bookmark)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_bookmark) {
+            viewModel.setBookmark()
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
     companion object {
