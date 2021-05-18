@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bayuspace.academy.data.source.AcademyRepository
+import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
