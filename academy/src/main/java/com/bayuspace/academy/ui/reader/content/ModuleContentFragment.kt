@@ -35,12 +35,11 @@ class ModuleContentFragment : Fragment() {
                 requireActivity(),
                 ViewModelFactory.getInstance(requireActivity())
             )[CourseReaderViewModel::class.java]
-            fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
             viewModel.selectedModule.observe(requireActivity(), {
                 if (it != null) {
                     when (it.status) {
                         Status.LOADING -> fragmentModuleContentBinding.progressBar.visibility =
-                            View.GONE
+                            View.VISIBLE
                         Status.SUCCESS -> {
                             if (it.data != null) {
                                 fragmentModuleContentBinding.progressBar.visibility = View.GONE

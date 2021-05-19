@@ -3,6 +3,7 @@ package com.bayuspace.academy.ui.bookmark
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.bayuspace.academy.data.source.AcademyRepository
 import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.utils.DataDummy
@@ -30,7 +31,10 @@ class BookmarkViewModelTest {
     private lateinit var academyRepository: AcademyRepository
 
     @Mock
-    private lateinit var observer: Observer<List<CourseEntity>>
+    private lateinit var observer: Observer<PagedList<CourseEntity>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<CourseEntity>
 
     @Before
     fun setUp() {
@@ -39,8 +43,9 @@ class BookmarkViewModelTest {
 
     @Test
     fun getBookmarks() {
-        val dummyCourse = DataDummy.generateDummyCourse()
-        val courses = MutableLiveData<List<CourseEntity>>()
+        val dummyCourse = pagedList
+        `when`(dummyCourse.size).thenReturn(5)
+        val courses = MutableLiveData<PagedList<CourseEntity>>()
         courses.value = dummyCourse
 
         `when`(academyRepository.getBookmarkCourses()).thenReturn(courses)
