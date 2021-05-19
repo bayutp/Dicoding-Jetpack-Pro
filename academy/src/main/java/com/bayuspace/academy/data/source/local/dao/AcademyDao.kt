@@ -1,6 +1,7 @@
 package com.bayuspace.academy.data.source.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.data.source.local.entity.CourseWithModule
@@ -9,10 +10,10 @@ import com.bayuspace.academy.data.source.local.entity.ModuleEntity
 @Dao
 interface AcademyDao {
     @Query("SELECT * FROM courseentities")
-    fun getCourses(): LiveData<List<CourseEntity>>
+    fun getCourses(): DataSource.Factory<Int, CourseEntity>
 
     @Query("SELECT * FROM courseentities WHERE bookmark = 1")
-    fun getBookmarkedCourse(): LiveData<List<CourseEntity>>
+    fun getBookmarkedCourse(): DataSource.Factory<Int, CourseEntity>
 
     @Transaction
     @Query("SELECT * FROM courseentities WHERE courseId = :courseId")

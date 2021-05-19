@@ -2,6 +2,8 @@ package com.bayuspace.academy.ui.bookmark
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bayuspace.academy.R
 import com.bayuspace.academy.data.source.local.entity.CourseEntity
@@ -12,14 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 class BookmarkAdapter(
     private val listener: (CourseEntity) -> Unit,
     private val shareListener: (CourseEntity) -> Unit
-) : RecyclerView.Adapter<BookmarkAdapter.ViewHolder>() {
-    private val listCourse = ArrayList<CourseEntity>()
-
-    fun setCourse(data: List<CourseEntity>) {
-        listCourse.clear()
-        listCourse.addAll(data)
-        notifyDataSetChanged()
-    }
+) : PagedListAdapter<CourseEntity, BookmarkAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     inner class ViewHolder(private val binding: ItemsBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -50,10 +45,21 @@ class BookmarkAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listCourse[position])
+        holder.bind(getItem(position) as CourseEntity)
     }
 
-    override fun getItemCount(): Int {
-        return listCourse.size
+    fun getSwipeData(position: Int) = getItem(position)
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>() {
+            override fun areItemsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem.courseId == newItem.courseId
+            }
+
+            override fun areContentsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }
