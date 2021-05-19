@@ -2,6 +2,7 @@ package com.bayuspace.mynotesroom.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.bayuspace.mynotesroom.database.AppDatabase
 import com.bayuspace.mynotesroom.database.NoteDao
 import com.bayuspace.mynotesroom.database.NoteEntity
@@ -17,7 +18,7 @@ class NoteRepository(application: Application) {
         mNoteDao = db.noteDao()
     }
 
-    fun getAllNotes(): LiveData<List<NoteEntity>> = mNoteDao.getAllNotes()
+    fun getAllNotes(): DataSource.Factory<Int, NoteEntity> = mNoteDao.getAllNotes()
 
     fun insertNote(note: NoteEntity) {
         executorService.execute { mNoteDao.insertNote(note) }

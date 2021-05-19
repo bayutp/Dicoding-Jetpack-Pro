@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.mynotesroom.R
 import com.bayuspace.mynotesroom.database.NoteEntity
@@ -27,14 +28,14 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     private var _activityMainBinding: ActivityMainBinding? = null
     private val binding get() = _activityMainBinding
-    private lateinit var noteAdapter: NoteAdapter
+    private lateinit var noteAdapter: NotePagedListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        noteAdapter = NoteAdapter { note, position ->
+        noteAdapter = NotePagedListAdapter() { note, position ->
             val intent = Intent(this, NoteAddUpdateActivity::class.java)
             intent.putExtra(EXTRA_POSITION, position)
             intent.putExtra(EXTRA_NOTE, note)
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     private val observer = Observer<List<NoteEntity>> {
         if (it != null) {
-            noteAdapter.setData(it)
+            noteAdapter.submitList(it as PagedList<NoteEntity>)
         }
     }
 
