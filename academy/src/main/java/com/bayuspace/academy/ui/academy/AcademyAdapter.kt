@@ -1,8 +1,9 @@
 package com.bayuspace.academy.ui.academy
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bayuspace.academy.R
 import com.bayuspace.academy.data.source.local.entity.CourseEntity
@@ -11,8 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class AcademyAdapter(private val listener: (CourseEntity) -> Unit) :
-    RecyclerView.Adapter<AcademyAdapter.ViewHolder>() {
-    private var listCourse = ArrayList<CourseEntity>()
+   PagedListAdapter<CourseEntity, AcademyAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     inner class ViewHolder(private val binding: ItemsAcademyBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,13 +36,6 @@ class AcademyAdapter(private val listener: (CourseEntity) -> Unit) :
         }
     }
 
-    fun setCourse(data: List<CourseEntity>) {
-        listCourse.clear()
-        listCourse.addAll(data)
-        notifyDataSetChanged()
-        Log.d("TAG", "setCourse: ${data.size}")
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemAcademyBinding =
             ItemsAcademyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -50,10 +43,19 @@ class AcademyAdapter(private val listener: (CourseEntity) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listCourse[position])
+        holder.bind(getItem(position) as CourseEntity)
     }
 
-    override fun getItemCount(): Int {
-        return listCourse.size
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>() {
+            override fun areItemsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem.courseId == newItem.courseId
+            }
+
+            override fun areContentsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 }

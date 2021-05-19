@@ -1,6 +1,7 @@
 package com.bayuspace.academy.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.bayuspace.academy.data.source.local.dao.AcademyDao
 import com.bayuspace.academy.data.source.local.entity.CourseEntity
 import com.bayuspace.academy.data.source.local.entity.CourseWithModule
@@ -14,9 +15,9 @@ class LocaleDataSource private constructor(private val academyDao: AcademyDao) {
             INSTANCE ?: LocaleDataSource(academyDao)
     }
 
-    fun getAllCourses(): LiveData<List<CourseEntity>> = academyDao.getCourses()
+    fun getAllCourses(): DataSource.Factory<Int, CourseEntity> = academyDao.getCourses()
 
-    fun getBookmarkedCourses(): LiveData<List<CourseEntity>> = academyDao.getBookmarkedCourse()
+    fun getBookmarkedCourses(): DataSource.Factory<Int, CourseEntity> = academyDao.getBookmarkedCourse()
 
     fun getCourseWithModules(courseId: String): LiveData<CourseWithModule> =
         academyDao.getCourseWithModuleById(courseId)
