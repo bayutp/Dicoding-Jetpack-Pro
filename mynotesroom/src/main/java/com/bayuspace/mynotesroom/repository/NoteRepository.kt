@@ -6,6 +6,7 @@ import androidx.paging.DataSource
 import com.bayuspace.mynotesroom.database.AppDatabase
 import com.bayuspace.mynotesroom.database.NoteDao
 import com.bayuspace.mynotesroom.database.NoteEntity
+import com.bayuspace.mynotesroom.helper.SortUtil
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -18,7 +19,10 @@ class NoteRepository(application: Application) {
         mNoteDao = db.noteDao()
     }
 
-    fun getAllNotes(): DataSource.Factory<Int, NoteEntity> = mNoteDao.getAllNotes()
+    fun getAllNotes(sort: String): DataSource.Factory<Int, NoteEntity> {
+        val query = SortUtil.getSortedQuery(sort)
+        return  mNoteDao.getAllNotes(query)
+    }
 
     fun insertNote(note: NoteEntity) {
         executorService.execute { mNoteDao.insertNote(note) }
