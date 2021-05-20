@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bayuspace.mynotesroom.R
 import com.bayuspace.mynotesroom.database.NoteEntity
 import com.bayuspace.mynotesroom.databinding.ActivityMainBinding
+import com.bayuspace.mynotesroom.helper.SortUtil
 import com.bayuspace.mynotesroom.helper.ViewModelFactory
 import com.bayuspace.mynotesroom.ui.NoteAdapter
 import com.bayuspace.mynotesroom.ui.insert.NoteAddUpdateActivity
@@ -27,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private var _activityMainBinding: ActivityMainBinding? = null
+    private lateinit var viewModel: MainViewModel
     private val binding get() = _activityMainBinding
     private lateinit var noteAdapter: NotePagedListAdapter
 
@@ -48,8 +52,8 @@ class MainActivity : AppCompatActivity() {
             adapter = noteAdapter
         }
 
-        val viewModel = obtainViewModel(this@MainActivity)
-        viewModel.getAllNotes().observe(this, observer)
+        viewModel = obtainViewModel(this@MainActivity)
+        viewModel.getAllNotes(SortUtil.NEWEST).observe(this, observer)
 
         binding?.fabAdd?.setOnClickListener {
             if (it.id == R.id.fab_add) {
@@ -83,6 +87,23 @@ class MainActivity : AppCompatActivity() {
         if (it != null) {
             noteAdapter.submitList(it as PagedList<NoteEntity>)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var sort = ""
+        when (item.itemId) {
+            R.id.action_newest -> sort = SortUtil.NEWEST
+            R.id.action_random -> sort = SortUtil.RANDOM
+            R.id.action_oldest -> sort = SortUtil.OLDEST
+        }
+        viewModel.getAllNotes(sort).observe(this, observer)
+        item.isChecked = true
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

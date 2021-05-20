@@ -11,7 +11,7 @@ import com.bayuspace.mynotesroom.repository.NoteRepository
 class MainViewModel(application: Application) : ViewModel() {
     private val mNoteRepository: NoteRepository = NoteRepository(application)
 
-    fun getAllNotes(): LiveData<PagedList<NoteEntity>> {
-        return LivePagedListBuilder(mNoteRepository.getAllNotes(), 7).build()
+    fun getAllNotes(sort: String): LiveData<PagedList<NoteEntity>> {
+        return LivePagedListBuilder(mNoteRepository.getAllNotes(sort), 7).build()
     }
 }
