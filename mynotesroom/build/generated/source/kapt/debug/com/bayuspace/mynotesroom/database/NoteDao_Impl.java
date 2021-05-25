@@ -1,23 +1,21 @@
 package com.bayuspace.mynotesroom.database;
 
 import android.database.Cursor;
-import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
-import androidx.room.RoomSQLiteQuery;
-import androidx.room.util.CursorUtil;
-import androidx.room.util.DBUtil;
+import androidx.room.paging.LimitOffsetDataSource;
+import androidx.sqlite.db.SupportSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import java.lang.Class;
-import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 @SuppressWarnings({"unchecked", "deprecation"})
 public final class NoteDao_Impl implements NoteDao {
@@ -110,6 +108,18 @@ public final class NoteDao_Impl implements NoteDao {
   }
 
   @Override
+  public void insertAll(final List<NoteEntity> list) {
+    __db.assertNotSuspendingTransaction();
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfNoteEntity.insert(list);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
   public void deleteNote(final NoteEntity note) {
     __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
@@ -134,58 +144,75 @@ public final class NoteDao_Impl implements NoteDao {
   }
 
   @Override
-  public LiveData<List<NoteEntity>> getAllNotes() {
-    final String _sql = "SELECT * FROM tbl_note";
-    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
-    return __db.getInvalidationTracker().createLiveData(new String[]{"tbl_note"}, false, new Callable<List<NoteEntity>>() {
+  public DataSource.Factory<Integer, NoteEntity> getAllNotes(final SupportSQLiteQuery query) {
+    final SupportSQLiteQuery _internalQuery = query;
+    return new DataSource.Factory<Integer, NoteEntity>() {
       @Override
-      public List<NoteEntity> call() throws Exception {
-        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
-        try {
-          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
-          final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
-          final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
-          final int _cursorIndexOfDate = CursorUtil.getColumnIndexOrThrow(_cursor, "date");
-          final List<NoteEntity> _result = new ArrayList<NoteEntity>(_cursor.getCount());
-          while(_cursor.moveToNext()) {
-            final NoteEntity _item;
-            final int _tmpId;
-            _tmpId = _cursor.getInt(_cursorIndexOfId);
-            final String _tmpTitle;
-            if (_cursor.isNull(_cursorIndexOfTitle)) {
-              _tmpTitle = null;
-            } else {
-              _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+      public LimitOffsetDataSource<NoteEntity> create() {
+        return new LimitOffsetDataSource<NoteEntity>(__db, _internalQuery, false, true , "tbl_note") {
+          @Override
+          protected List<NoteEntity> convertRows(Cursor cursor) {
+            final List<NoteEntity> _res = new ArrayList<NoteEntity>(cursor.getCount());
+            while(cursor.moveToNext()) {
+              final NoteEntity _item;
+              _item = __entityCursorConverter_comBayuspaceMynotesroomDatabaseNoteEntity(cursor);
+              _res.add(_item);
             }
-            final String _tmpDescription;
-            if (_cursor.isNull(_cursorIndexOfDescription)) {
-              _tmpDescription = null;
-            } else {
-              _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
-            }
-            final String _tmpDate;
-            if (_cursor.isNull(_cursorIndexOfDate)) {
-              _tmpDate = null;
-            } else {
-              _tmpDate = _cursor.getString(_cursorIndexOfDate);
-            }
-            _item = new NoteEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpDate);
-            _result.add(_item);
+            return _res;
           }
-          return _result;
-        } finally {
-          _cursor.close();
-        }
+        };
       }
-
-      @Override
-      protected void finalize() {
-        _statement.release();
-      }
-    });
+    };
   }
 
   public static List<Class<?>> getRequiredConverters() {
     return Collections.emptyList();
+  }
+
+  private NoteEntity __entityCursorConverter_comBayuspaceMynotesroomDatabaseNoteEntity(
+      Cursor cursor) {
+    final NoteEntity _entity;
+    final int _cursorIndexOfId = cursor.getColumnIndex("id");
+    final int _cursorIndexOfTitle = cursor.getColumnIndex("title");
+    final int _cursorIndexOfDescription = cursor.getColumnIndex("description");
+    final int _cursorIndexOfDate = cursor.getColumnIndex("date");
+    final int _tmpId;
+    if (_cursorIndexOfId == -1) {
+      _tmpId = 0;
+    } else {
+      _tmpId = cursor.getInt(_cursorIndexOfId);
+    }
+    final String _tmpTitle;
+    if (_cursorIndexOfTitle == -1) {
+      _tmpTitle = null;
+    } else {
+      if (cursor.isNull(_cursorIndexOfTitle)) {
+        _tmpTitle = null;
+      } else {
+        _tmpTitle = cursor.getString(_cursorIndexOfTitle);
+      }
+    }
+    final String _tmpDescription;
+    if (_cursorIndexOfDescription == -1) {
+      _tmpDescription = null;
+    } else {
+      if (cursor.isNull(_cursorIndexOfDescription)) {
+        _tmpDescription = null;
+      } else {
+        _tmpDescription = cursor.getString(_cursorIndexOfDescription);
+      }
+    }
+    final String _tmpDate;
+    if (_cursorIndexOfDate == -1) {
+      _tmpDate = null;
+    } else {
+      if (cursor.isNull(_cursorIndexOfDate)) {
+        _tmpDate = null;
+      } else {
+        _tmpDate = cursor.getString(_cursorIndexOfDate);
+      }
+    }
+    _entity = new NoteEntity(_tmpId,_tmpTitle,_tmpDescription,_tmpDate);
+    return _entity;
   }
 }

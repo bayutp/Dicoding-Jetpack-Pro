@@ -1751,6 +1751,9 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_newest
+id action_oldest
+id action_random
 id action_text
 id actions
 id activity_chooser_view_content
@@ -2252,6 +2255,7 @@ layout text_view_with_line_height_from_layout
 layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
+menu home_menu
 menu main_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -2324,6 +2328,9 @@ string material_timepicker_minute
 string material_timepicker_pm
 string material_timepicker_select_time
 string material_timepicker_text_input_mode_description
+string menu_newest
+string menu_oldest
+string menu_random
 string message_cancel
 string message_delete
 string message_ok

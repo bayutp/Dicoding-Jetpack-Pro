@@ -29,7 +29,7 @@
 20        android:theme="@style/Theme.DicodingJetpackPro" >
 20-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:11:9-56
 21        <activity android:name="com.bayuspace.mynotesroom.ui.insert.NoteAddUpdateActivity" />
-21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:9-78
+21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:9-68
 21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:19-66
 22        <activity android:name="com.bayuspace.mynotesroom.ui.main.MainActivity" >
 22-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:13:9-19:20

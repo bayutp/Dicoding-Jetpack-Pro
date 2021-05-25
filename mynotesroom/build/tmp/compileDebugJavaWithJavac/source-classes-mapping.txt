@@ -10,6 +10,7 @@ com/bayuspace/mynotesroom/database/NoteDao_Impl.java
  com.bayuspace.mynotesroom.database.NoteDao_Impl$2
  com.bayuspace.mynotesroom.database.NoteDao_Impl$3
  com.bayuspace.mynotesroom.database.NoteDao_Impl$4
+ com.bayuspace.mynotesroom.database.NoteDao_Impl$4$1
 com/bayuspace/mynotesroom/database/AppDatabase_Impl.java
  com.bayuspace.mynotesroom.database.AppDatabase_Impl
  com.bayuspace.mynotesroom.database.AppDatabase_Impl$1
