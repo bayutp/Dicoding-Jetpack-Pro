@@ -34,7 +34,11 @@ class RemoteDataSource(private val apiService: ApiService) : BaseDataSource() {
         }
     }
 
-    companion object{
+    suspend fun getDiscoverMovies() = suspendDataResult { getResult { apiService.getDiscoverMovies() } }
+
+    suspend fun getDiscoverTvs() = suspendDataResult { getResult { apiService.getDiscoverTvs() } }
+
+    companion object {
         const val NO_INTERNET = "No internet connection!"
     }
 }
