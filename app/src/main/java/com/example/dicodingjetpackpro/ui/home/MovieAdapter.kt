@@ -71,6 +71,7 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
                         tvTitleMovie.text =
                             "${data.title} (${data.releaseDate.formatDate("yyyy-MM-dd", "yyyy")})"
                         ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
+                        tvRating.text = data.voteAverage.toString()
 
                         itemView.setOnClickListener { listener(data) }
                     }
@@ -80,6 +81,7 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
                         tvTitleMovie.text =
                             "${data.name} (${data.firstAirDate.formatDate("yyyy-MM-dd", "yyyy")})"
                         ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.backdropPath}")
+                        tvRating.text = data.voteAverage.toString()
 
                         itemView.setOnClickListener { listener(data) }
                     }

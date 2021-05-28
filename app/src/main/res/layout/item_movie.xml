@@ -7,11 +7,38 @@
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clipToPadding="true"
+        app:cardBackgroundColor="@color/colorGrey"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp"
+        app:layout_constraintEnd_toEndOf="@id/card_poster_movie"
+        app:layout_constraintTop_toTopOf="@id/card_poster_movie">
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="4dp"
+            android:padding="4dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="4dp"
+            android:textSize="12sp"
+            tools:text="8.0"
+            app:drawableStartCompat="@drawable/ic_rating"
+            app:drawableLeftCompat="@drawable/ic_rating" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_poster_movie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
         android:clipToPadding="true"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
