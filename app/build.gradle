@@ -17,6 +17,7 @@ android {
 
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
         buildConfigField "String", "API_KEY", "\"7793be41b422b300b543f1ec64a2b2d5\""
+        buildConfigField "String", "IMAGE_BASE_URL","\"https://image.tmdb.org/t/p/w500\""
 
         multiDexEnabled true
     }

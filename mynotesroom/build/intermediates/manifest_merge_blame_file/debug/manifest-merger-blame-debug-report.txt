@@ -25,35 +25,34 @@
 17-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:9:9-54
 18        android:supportsRtl="true"
 18-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:10:9-35
-19        android:testOnly="true"
-20        android:theme="@style/Theme.DicodingJetpackPro" >
-20-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:11:9-56
-21        <activity android:name="com.bayuspace.mynotesroom.ui.insert.NoteAddUpdateActivity" />
-21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:9-68
-21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:19-66
-22        <activity android:name="com.bayuspace.mynotesroom.ui.main.MainActivity" >
-22-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:13:9-19:20
-22-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:13:19-55
-23            <intent-filter>
-23-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:14:13-18:29
-24                <action android:name="android.intent.action.MAIN" />
-24-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:15:17-69
-24-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:15:25-66
-25
-26                <category android:name="android.intent.category.LAUNCHER" />
-26-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:17:17-77
-26-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:17:27-74
-27            </intent-filter>
-28        </activity>
-29
-30        <service
-30-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:25:9-28:40
-31            android:name="androidx.room.MultiInstanceInvalidationService"
-31-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:26:13-74
-32            android:directBootAware="true"
-32-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:27:13-43
-33            android:exported="false" />
-33-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:28:13-37
-34    </application>
-35
-36</manifest>
+19        android:theme="@style/Theme.DicodingJetpackPro" >
+19-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:11:9-56
+20        <activity android:name="com.bayuspace.mynotesroom.ui.insert.NoteAddUpdateActivity" />
+20-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:9-68
+20-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:12:19-66
+21        <activity android:name="com.bayuspace.mynotesroom.ui.main.MainActivity" >
+21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:13:9-19:20
+21-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:13:19-55
+22            <intent-filter>
+22-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:14:13-18:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:15:17-69
+23-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:15:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:17:17-77
+25-->C:\Users\Lenovo\OneDrive\Desktop\Dicoding-Jetpack-Pro\mynotesroom\src\main\AndroidManifest.xml:17:27-74
+26            </intent-filter>
+27        </activity>
+28
+29        <service
+29-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:25:9-28:40
+30            android:name="androidx.room.MultiInstanceInvalidationService"
+30-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:26:13-74
+31            android:directBootAware="true"
+31-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:27:13-43
+32            android:exported="false" />
+32-->[androidx.room:room-runtime:2.3.0] C:\Users\Lenovo\.gradle\caches\transforms-2\files-2.1\828019fead31ee44c9073a4a211cd3f6\room-runtime-2.3.0\AndroidManifest.xml:28:13-37
+33    </application>
+34
+35</manifest>

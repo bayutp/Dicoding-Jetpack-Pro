@@ -19,11 +19,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="roundedCorners" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">xxdp</item>
-    </style>
-
     <style name="Theme.DicodingJetpackPro.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DicodingJetpackPro.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
