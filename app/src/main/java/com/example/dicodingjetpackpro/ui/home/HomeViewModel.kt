@@ -6,15 +6,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.dicodingjetpackpro.base.BaseViewModel
 import com.example.dicodingjetpackpro.base.ResourceState
 import com.example.dicodingjetpackpro.model.response.movie.MovieResponse
+import com.example.dicodingjetpackpro.model.response.tv.TvResponse
 import com.example.dicodingjetpackpro.repository.DataRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
     private val onGetDiscoverMoviesSuccess = MutableLiveData<MovieResponse>()
-    private val onGetDiscoverTvsSuccess = MutableLiveData<MovieResponse>()
+    private val onGetDiscoverTvsSuccess = MutableLiveData<TvResponse>()
 
     fun observeDiscoverMovies(): LiveData<MovieResponse> = onGetDiscoverMoviesSuccess
-    fun observeDiscoverTvs(): LiveData<MovieResponse> = onGetDiscoverTvsSuccess
+    fun observeDiscoverTvs(): LiveData<TvResponse> = onGetDiscoverTvsSuccess
 
     fun getDiscoverMovies() {
         isLoading.postValue(true)
