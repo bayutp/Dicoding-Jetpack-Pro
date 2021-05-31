@@ -1,10 +1,15 @@
 package com.example.dicodingjetpackpro.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dicodingjetpackpro.BuildConfig
+import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseDiffCallback
 import com.example.dicodingjetpackpro.databinding.ItemMovieBinding
 import com.example.dicodingjetpackpro.model.response.movie.Result
@@ -12,18 +17,23 @@ import com.example.dicodingjetpackpro.model.response.tv.TvResult
 import com.example.dicodingjetpackpro.utils.formatDate
 import com.example.dicodingjetpackpro.utils.loadImage
 
+
 class MovieAdapter<T>(private val listener: (T) -> Unit) :
     RecyclerView.Adapter<MovieAdapter<T>.ViewHolder>() {
 
     private val movieList = mutableListOf<T>()
+    private var lastPosition = -1
+    private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        context = parent.context
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movieList[position])
+        setAnimation(holder.itemView, position)
     }
 
     override fun getItemCount(): Int {
@@ -60,6 +70,15 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
         movieList.addAll(data)
         diffResult.dispatchUpdatesTo(this)
 
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        val anim = if (position > lastPosition)
+            AnimationUtils.loadAnimation(context, R.anim.rv_anim_up_to_down)
+        else AnimationUtils.loadAnimation(context, R.anim.rv_anim_down_to_up)
+
+        viewToAnimate.startAnimation(anim)
+        lastPosition = position
     }
 
     inner class ViewHolder(private val binding: ItemMovieBinding) :
