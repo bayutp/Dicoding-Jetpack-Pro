@@ -72,12 +72,14 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
     }
 
     private fun setAnimation(viewToAnimate: View, position: Int) {
-        val anim = if (position > lastPosition)
+        /*val anim = if (position > lastPosition)
             AnimationUtils.loadAnimation(context, R.anim.rv_anim_up_to_down)
-        else AnimationUtils.loadAnimation(context, R.anim.rv_anim_down_to_up)
-
-        viewToAnimate.startAnimation(anim)
-        lastPosition = position
+        else AnimationUtils.loadAnimation(context, R.anim.rv_anim_down_to_up)*/
+        if (position > lastPosition){
+            val anim = AnimationUtils.loadAnimation(context, R.anim.rv_anim_up_to_down)
+            viewToAnimate.startAnimation(anim)
+            lastPosition = position
+        }
     }
 
     inner class ViewHolder(private val binding: ItemMovieBinding) :

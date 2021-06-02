@@ -33,4 +33,6 @@ interface ApiService {
         @Path("id_movie") movieId: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<MovieResponse>
+
+
 }

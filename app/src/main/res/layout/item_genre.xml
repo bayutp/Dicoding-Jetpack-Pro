@@ -8,6 +8,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     tools:text="Horror"
+    android:fontFamily="@font/montserrat_regular"
     style="@style/Theme.MaterialComponents.Light"
     android:textColor="@color/colorGrey"
     app:chipBackgroundColor="@color/colorPrimary" />
