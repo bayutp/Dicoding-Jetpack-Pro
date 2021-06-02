@@ -1,7 +1,6 @@
 package com.example.dicodingjetpackpro.api
 
 import com.example.dicodingjetpackpro.BuildConfig
-import com.example.dicodingjetpackpro.model.response.BaseResponse
 import com.example.dicodingjetpackpro.model.response.movie.MovieDetailResponse
 import com.example.dicodingjetpackpro.model.response.movie.MovieResponse
 import com.example.dicodingjetpackpro.model.response.tv.TvResponse
@@ -28,4 +27,10 @@ interface ApiService {
         @Path("id_movie") movieId: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<MovieDetailResponse>
+
+    @GET("movie/{id_movie}/similar")
+    suspend fun getSimilarMovies(
+        @Path("id_movie") movieId: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
+    ): Response<MovieResponse>
 }

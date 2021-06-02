@@ -15,7 +15,6 @@ import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
 import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.ui.home.MovieAdapter
-import com.example.dicodingjetpackpro.ui.home.detail.DetailFragment
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
 import com.example.dicodingjetpackpro.utils.visible

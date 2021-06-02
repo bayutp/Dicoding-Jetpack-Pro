@@ -1,14 +1,12 @@
 package com.example.dicodingjetpackpro.ui.home.tv
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentTvBinding
-import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.model.response.tv.TvResult
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
 import com.example.dicodingjetpackpro.ui.home.MainActivity

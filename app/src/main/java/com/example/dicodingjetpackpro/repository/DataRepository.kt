@@ -7,4 +7,5 @@ class DataRepository(private val local: LocalDataSource, private val remote: Rem
     suspend fun getDiscoverMovies() = remote.getDiscoverMovies()
     suspend fun getDiscoverTvs() = remote.getDiscoverTvs()
     suspend fun getMovieDetail(movieId: String) = remote.getMovieDetail(movieId)
+    suspend fun getSimilarMovies(movieId: String) = remote.getSimilarMovies(movieId)
 }

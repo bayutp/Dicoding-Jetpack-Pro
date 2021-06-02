@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingjetpackpro.BuildConfig
 import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentDetailBinding
+import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.utils.*
 import com.google.android.material.chip.Chip
@@ -24,6 +26,7 @@ class DetailFragment : BaseFragment() {
         movieId = requireArguments().getInt("movie_id").toString()
         if (movieId.isNotEmpty()) {
             detailViewModel.getMovieDetail(movieId)
+            detailViewModel.getSimilarMovies(movieId)
         }
         (activity as MainActivity).hideBottomNavigation()
         hideToolbar(true)
@@ -62,6 +65,21 @@ class DetailFragment : BaseFragment() {
                     }
                 }
             }
+
+            observeGetSimilarMovieSuccess().onResult {
+                val similarAdapter = SimilarMovieAdapter<Result> {
+                    detailViewModel.getMovieDetail(it.id.toString())
+                    _binding.nsParentDetail.smoothScrollTo(0, 0)
+                }
+                with(_binding.rvRelatedMovie) {
+                    setHasFixedSize(true)
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    adapter = similarAdapter
+                }
+                similarAdapter.setData(it.results)
+            }
+
             observeError().onResult {
                 _binding.nsParentDetail.gone()
                 requireContext().showMsg(it.msg ?: "Error, failed load content")
