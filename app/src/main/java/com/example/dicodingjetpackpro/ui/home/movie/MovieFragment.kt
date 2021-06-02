@@ -34,8 +34,8 @@ class MovieFragment : BaseFragment() {
                 args = bundleOf("movie_id" to it.id),
                 navOptions {
                     anim {
-                        enter = android.R.animator.fade_in
-                        exit = android.R.animator.fade_out
+                        enter = R.anim.nav_default_pop_enter_anim
+                        exit = R.anim.nav_default_exit_anim
                     }
                 }
             )

@@ -1,7 +1,2 @@
-include ':mynotesroom'
-include ':restoranlivedatawithapi'
-include ':samplelivadata'
-include ':academy'
 rootProject.name='Dicoding Jetpack Pro'
 include ':app'
-include ':myviewmodel'

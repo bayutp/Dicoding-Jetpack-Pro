@@ -13,12 +13,8 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="top" />
-
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/ns_parent_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -26,6 +22,34 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:scaleType="center"
+                android:backgroundTint="@color/colorGrey"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:scaleType="center"
+                android:backgroundTint="@color/colorGrey"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                android:src="@drawable/ic_bookmark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop" />
 
             <ImageView
                 android:id="@+id/iv_detail"
@@ -35,6 +59,18 @@
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_marginTop="150dp"
+                app:layout_constraintStart_toStartOf="@id/fab_back"
+                app:layout_constraintTop_toBottomOf="@id/fab_back" />
+
+
+
             <TextView
                 android:id="@+id/tv_title_detail"
                 android:layout_width="match_parent"
@@ -43,7 +79,7 @@
                 android:padding="12dp"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_detail"
+                app:layout_constraintTop_toBottomOf="@id/iv_poster"
                 tools:text="Spiderman" />
 
             <TextView
@@ -76,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
+                android:background="#bdbdbd"
                 app:layout_constraintTop_toBottomOf="@id/tv_time_detail" />
 
             <TextView
@@ -114,24 +150,24 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_release_date"
                 tools:text="09 September 2021" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_genre"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips_genre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingLeft="8dp"
-                android:paddingEnd="8dp"
                 app:layout_constraintEnd_toEndOf="@id/tv_genre"
                 app:layout_constraintStart_toStartOf="@id/tv_genre"
-                app:layout_constraintTop_toBottomOf="@id/tv_genre" />
+                app:layout_constraintTop_toBottomOf="@id/tv_genre"
+                app:singleSelection="false">
+
+            </com.google.android.material.chip.ChipGroup>
 
             <View
                 android:id="@+id/view_2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/rv_genre" />
+                android:background="#bdbdbd"
+                app:layout_constraintTop_toBottomOf="@id/chips_genre" />
 
             <TextView
                 android:id="@+id/tv_synopsis_title"
@@ -149,8 +185,6 @@
                 android:id="@+id/tv_synopsis"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="5"
                 android:paddingStart="8dp"
                 android:paddingLeft="8dp"
                 android:paddingEnd="8dp"
