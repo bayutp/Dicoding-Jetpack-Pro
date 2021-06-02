@@ -1,11 +1,9 @@
 package com.example.dicodingjetpackpro.repository.remote
 
-import android.util.Log
 import com.example.dicodingjetpackpro.api.ApiService
 import com.example.dicodingjetpackpro.base.BaseDataSource
 import com.example.dicodingjetpackpro.base.ResourceState
 import com.example.dicodingjetpackpro.base.ResponseWrapper
-import com.google.gson.Gson
 import retrofit2.Response
 import java.net.UnknownHostException
 
@@ -34,6 +32,8 @@ class RemoteDataSource(private val apiService: ApiService) : BaseDataSource() {
     suspend fun getDiscoverMovies() = suspendDataResult { getResult { apiService.getDiscoverMovies() } }
 
     suspend fun getDiscoverTvs() = suspendDataResult { getResult { apiService.getDiscoverTvs() } }
+
+    suspend fun getMovieDetail(movieId: String) = suspendDataResult { getResult { apiService.getMovieDetail(movieId) } }
 
     companion object {
         const val NO_INTERNET = "No internet connection!"

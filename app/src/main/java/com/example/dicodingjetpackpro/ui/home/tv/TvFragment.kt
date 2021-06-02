@@ -11,6 +11,7 @@ import com.example.dicodingjetpackpro.databinding.FragmentTvBinding
 import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.model.response.tv.TvResult
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
+import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.ui.home.MovieAdapter
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
@@ -46,6 +47,7 @@ class TvFragment : BaseFragment() {
             }
         }
         homeViewModel.getDiscoverTvs()
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 
     override fun observeData() {

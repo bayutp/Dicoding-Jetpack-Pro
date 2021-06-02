@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dicodingjetpackpro.R
+import com.example.dicodingjetpackpro.ui.home.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +29,9 @@ class BookmarkFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        (activity as MainActivity).hideBottomNavigation(false)
+
     }
 
     override fun onCreateView(

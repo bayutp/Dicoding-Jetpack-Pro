@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:labelVisibilityMode="unlabeled"
+        android:visibility="visible"
         app:itemIconTint="@drawable/bottom_nav_foreground"
         app:itemTextColor="@drawable/bottom_nav_foreground"
         app:layout_constraintBottom_toBottomOf="parent"

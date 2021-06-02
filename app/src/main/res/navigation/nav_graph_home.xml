@@ -9,15 +9,29 @@
         android:id="@+id/menu_home"
         android:name="com.example.dicodingjetpackpro.ui.home.movie.MovieFragment"
         android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie">
+        <action
+            android:id="@+id/action_menu_home_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/menu_home"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="movieId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/menu_bookmark"
         android:name="com.example.dicodingjetpackpro.ui.home.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark"/>
     <fragment
         android:id="@+id/menu_tv"
         android:name="com.example.dicodingjetpackpro.ui.home.tv.TvFragment"
         android:label="fragment_tv"
-        tools:layout="@layout/fragment_tv" />
+        tools:layout="@layout/fragment_tv"/>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.dicodingjetpackpro.ui.home.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

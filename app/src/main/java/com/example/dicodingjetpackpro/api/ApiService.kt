@@ -2,10 +2,12 @@ package com.example.dicodingjetpackpro.api
 
 import com.example.dicodingjetpackpro.BuildConfig
 import com.example.dicodingjetpackpro.model.response.BaseResponse
+import com.example.dicodingjetpackpro.model.response.movie.MovieDetailResponse
 import com.example.dicodingjetpackpro.model.response.movie.MovieResponse
 import com.example.dicodingjetpackpro.model.response.tv.TvResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -21,4 +23,9 @@ interface ApiService {
         @Query("sort_by") sort: String = "popularity.desc"
     ): Response<TvResponse>
 
+    @GET("movie/{id_movie}")
+    suspend fun getMovieDetail(
+        @Path("id_movie") movieId: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
+    ): Response<MovieDetailResponse>
 }

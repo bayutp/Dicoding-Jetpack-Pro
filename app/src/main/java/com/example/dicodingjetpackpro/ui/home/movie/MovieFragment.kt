@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentMovieBinding
 import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
+import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.ui.home.MovieAdapter
+import com.example.dicodingjetpackpro.ui.home.detail.DetailFragment
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
 import com.example.dicodingjetpackpro.utils.visible
@@ -23,7 +29,16 @@ class MovieFragment : BaseFragment() {
 
     override fun onViewReady(savedInstanceState: Bundle?) {
         movieAdapter = MovieAdapter {
-            requireContext().showMsg(it.title)
+            findNavController().navigate(
+                R.id.action_menu_home_to_detailFragment,
+                args = bundleOf("movie_id" to it.id),
+                navOptions {
+                    anim {
+                        enter = android.R.animator.fade_in
+                        exit = android.R.animator.fade_out
+                    }
+                }
+            )
         }
         with(_binding) {
             rvMovie.apply {
@@ -36,6 +51,7 @@ class MovieFragment : BaseFragment() {
             }
         }
         homeViewModel.getDiscoverMovies()
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 
     override fun observeData() {
