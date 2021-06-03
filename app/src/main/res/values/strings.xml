@@ -17,4 +17,5 @@
     <string name="genre">Genre</string>
     <string name="synopsis">Synopsis</string>
     <string name="related_movies">Related Movies</string>
+    <string name="related_tv">Related Tv Shows</string>
 </resources>

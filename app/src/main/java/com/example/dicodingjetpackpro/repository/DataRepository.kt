@@ -6,6 +6,8 @@ import com.example.dicodingjetpackpro.repository.remote.RemoteDataSource
 class DataRepository(private val local: LocalDataSource, private val remote: RemoteDataSource) {
     suspend fun getDiscoverMovies() = remote.getDiscoverMovies()
     suspend fun getDiscoverTvs() = remote.getDiscoverTvs()
-    suspend fun getMovieDetail(movieId: String) = remote.getMovieDetail(movieId)
-    suspend fun getSimilarMovies(movieId: String) = remote.getSimilarMovies(movieId)
+    suspend fun getMovieDetail(movieId: Int) = remote.getMovieDetail(movieId)
+    suspend fun getSimilarMovies(movieId: Int) = remote.getSimilarMovies(movieId)
+    suspend fun getTvDetail(tvId: Int) = remote.getTvDetail(tvId)
+    suspend fun getSimilarTvs(tvId: Int) = remote.getSimilarTvs(tvId)
 }

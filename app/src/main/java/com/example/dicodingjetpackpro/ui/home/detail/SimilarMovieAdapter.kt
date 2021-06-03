@@ -2,10 +2,13 @@ package com.example.dicodingjetpackpro.ui.home.detail
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dicodingjetpackpro.BuildConfig
+import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseDiffCallback
 import com.example.dicodingjetpackpro.databinding.ItemSimilarMovieBinding
 import com.example.dicodingjetpackpro.model.response.movie.Result
@@ -17,6 +20,7 @@ class SimilarMovieAdapter<T>(private val listener: (T) -> Unit) :
     RecyclerView.Adapter<SimilarMovieAdapter<T>.ViewHolder>() {
 
     private val movieList = mutableListOf<T>()
+    private var lastPosition = -1
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +31,7 @@ class SimilarMovieAdapter<T>(private val listener: (T) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movieList[position])
+        setAnimation(holder.itemView, position)
     }
 
     fun setData(data: List<T>, isMovie: Boolean = true) {
@@ -63,6 +68,14 @@ class SimilarMovieAdapter<T>(private val listener: (T) -> Unit) :
 
     override fun getItemCount(): Int {
         return movieList.size
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        if (position > lastPosition){
+            val anim = AnimationUtils.loadAnimation(context, R.anim.rv_anim_down_to_up)
+            viewToAnimate.startAnimation(anim)
+            lastPosition = position
+        }
     }
 
     inner class ViewHolder(private val binding: ItemSimilarMovieBinding) :

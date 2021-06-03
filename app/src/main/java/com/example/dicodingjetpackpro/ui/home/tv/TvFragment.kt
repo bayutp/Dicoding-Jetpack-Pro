@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentTvBinding
 import com.example.dicodingjetpackpro.model.response.tv.TvResult
@@ -32,7 +36,15 @@ class TvFragment : BaseFragment() {
 
     override fun onViewReady(savedInstanceState: Bundle?) {
         movieAdapter = MovieAdapter {
-            requireContext().showMsg(it.name)
+            findNavController().navigate(
+                R.id.action_menu_tv_to_detailFragment,
+                args = bundleOf("tv_id" to it.id),
+                navOptions {
+                    anim {
+                        enter = android.R.anim.fade_in
+                        exit = android.R.anim.fade_out
+                    }
+                })
         }
         with(_binding) {
             rvTv.apply {
