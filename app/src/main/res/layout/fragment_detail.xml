@@ -37,19 +37,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:targetApi="lollipop" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_bookmark"
+            <ImageView
+                android:id="@+id/iv_bookmark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_title_detail"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title_detail"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:scaleType="center"
-                android:backgroundTint="@color/colorGrey"
-                app:borderWidth="0dp"
-                app:fabSize="mini"
                 android:src="@drawable/ic_bookmark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:targetApi="lollipop" />
+                android:layout_marginRight="8dp"
+                app:tint="@color/colorAccent" />
 
             <ImageView
                 android:id="@+id/iv_detail"
@@ -77,12 +76,13 @@
 
             <TextView
                 android:id="@+id/tv_title_detail"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:padding="12dp"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/iv_bookmark"
                 android:fontFamily="@font/montserrat_bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card_poster"
@@ -124,7 +124,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="@id/tv_title_detail"
-                app:layout_constraintEnd_toEndOf="@id/tv_title_detail"
+                app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
                 app:layout_constraintTop_toBottomOf="@id/tv_time_detail" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/montserrat_medium"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_title_detail"
+                app:layout_constraintEnd_toEndOf="@id/view_1"
                 app:layout_constraintStart_toEndOf="@id/tv_release_date"
                 app:layout_constraintTop_toBottomOf="@id/view_1" />
 
@@ -187,7 +187,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="#bdbdbd"
                 app:layout_constraintStart_toStartOf="@id/tv_title_detail"
-                app:layout_constraintEnd_toEndOf="@id/tv_title_detail"
+                app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
                 app:layout_constraintTop_toBottomOf="@id/chips_genre" />
 
             <TextView
@@ -200,7 +200,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/montserrat_medium"
-                app:layout_constraintEnd_toEndOf="@id/tv_title_detail"
+                app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
                 app:layout_constraintStart_toStartOf="@id/tv_title_detail"
                 app:layout_constraintTop_toBottomOf="@id/view_2" />
 
@@ -227,7 +227,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/montserrat_medium"
-                app:layout_constraintEnd_toEndOf="@id/tv_title_detail"
+                app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
                 app:layout_constraintStart_toStartOf="@id/tv_title_detail"
                 app:layout_constraintTop_toBottomOf="@id/tv_synopsis" />
 
