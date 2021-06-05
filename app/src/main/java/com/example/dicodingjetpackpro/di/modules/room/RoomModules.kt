@@ -1,8 +1,10 @@
 package com.example.dicodingjetpackpro.di.modules.room
 
+import android.app.Application
 import androidx.room.Room
 import com.example.dicodingjetpackpro.di.modules.BaseModule
 import com.example.dicodingjetpackpro.repository.local.LocalDatabase
+import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -11,11 +13,20 @@ object RoomModules : BaseModule {
         get() = mutableListOf(roomModule)
 
     private val roomModule = module {
-        single {
-            Room.databaseBuilder(get(), LocalDatabase::class.java, "local-db")
+
+        fun provideDatabase(application: Application) =
+            Room.databaseBuilder(application, LocalDatabase::class.java, "local-db")
                 .addMigrations()
                 .fallbackToDestructiveMigration()
                 .build()
+
+        fun provideMovieDao(db: LocalDatabase) = db.movieDao()
+
+        single {
+            provideDatabase(androidApplication())
+            provideMovieDao(get())
         }
     }
+
+
 }

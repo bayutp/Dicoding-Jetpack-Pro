@@ -1,7 +1,6 @@
 package com.example.dicodingjetpackpro.ui.home.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -66,10 +65,10 @@ class DetailFragment : BaseFragment() {
                     ivPoster.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
                     tvTitleDetail.text = data.title
                     tvRatingDetail.text = String.format(
-                        "%s (%s)",
-                        data.voteAverage.toString(),
-                        data.voteCount.toString()
+                        "%s (IMDb)",
+                        data.voteAverage.toString()
                     )
+                    tvPopularityDetail.text = data.popularity.toString()
                     tvRelease.text = data.releaseDate.formatDate("yyyy-MM-dd", "MMMM dd, yyyy")
                     tvTimeDetail.text = String.format("%s minutes", data.runtime.toString())
                     tvSynopsis.text = data.overview
@@ -125,10 +124,10 @@ class DetailFragment : BaseFragment() {
                     ivPoster.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
                     tvTitleDetail.text = data.name
                     tvRatingDetail.text = String.format(
-                        "%s (%s)",
-                        data.voteAverage.toString(),
-                        data.voteCount.toString()
+                        "%s (IMDb)",
+                        data.voteAverage.toString()
                     )
+                    tvPopularityDetail.text = data.popularity.toString()
                     tvRelease.text = data.firstAirDate.formatDate("yyyy-MM-dd", "MMMM dd, yyyy")
                     tvTimeDetail.text = String.format(
                         "%s minutes",
