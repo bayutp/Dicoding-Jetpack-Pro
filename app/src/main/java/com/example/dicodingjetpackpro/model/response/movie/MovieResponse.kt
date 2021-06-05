@@ -15,21 +15,21 @@ data class MovieResponse(
 
 data class Result(
     @SerializedName("adult")
-    val adult: Boolean,
+    val adult: Boolean = false,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String? = null,
     @SerializedName("genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Int>? = null,
     @SerializedName("id")
     val id: Int,
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String? = null,
     @SerializedName("original_title")
-    val originalTitle: String,
+    val originalTitle: String? = null,
     @SerializedName("overview")
-    val overview: String,
+    val overview: String? = null,
     @SerializedName("popularity")
-    val popularity: Double,
+    val popularity: Double? = null,
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("release_date")
@@ -37,9 +37,9 @@ data class Result(
     @SerializedName("title")
     val title: String,
     @SerializedName("video")
-    val video: Boolean,
+    val video: Boolean = false,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double? = null,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int? = null
 )
