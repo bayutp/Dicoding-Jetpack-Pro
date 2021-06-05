@@ -21,11 +21,11 @@ object RoomModules : BaseModule {
                 .build()
 
         fun provideMovieDao(db: LocalDatabase) = db.movieDao()
+        fun provideTvDao(db:LocalDatabase) = db.tvDao()
 
-        single {
-            provideDatabase(androidApplication())
-            provideMovieDao(get())
-        }
+        single { provideDatabase(androidApplication()) }
+        single { provideMovieDao(get()) }
+        single { provideTvDao(get()) }
     }
 
 

@@ -98,7 +98,7 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
                 is TvResult -> {
                     with(binding) {
                         tvTitleMovie.text = String.format("%s (%s)", data.name, data.firstAirDate.formatDate("yyyy-MM-dd", "yyyy"))
-                        ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.backdropPath}")
+                        ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
                         tvRating.text = data.voteAverage.toString()
 
                         itemView.setOnClickListener { listener(data) }

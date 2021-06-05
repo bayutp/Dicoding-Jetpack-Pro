@@ -1,6 +1,7 @@
 package com.example.dicodingjetpackpro.repository
 
 import com.example.dicodingjetpackpro.model.entity.MovieEntity
+import com.example.dicodingjetpackpro.model.entity.TvEntity
 import com.example.dicodingjetpackpro.repository.local.LocalDataSource
 import com.example.dicodingjetpackpro.repository.remote.RemoteDataSource
 
@@ -14,6 +15,7 @@ class DataRepository(private val local: LocalDataSource, private val remote: Rem
 
     suspend fun getMovieBookmarked() = local.getMovies()
     suspend fun saveBookmark(data: List<MovieEntity>) = local.insertMovies(data)
-    suspend fun setMovieBookmark(isBookmark: Boolean, movieId: Int) =
-        local.updateMovie(isBookmark, movieId)
+    suspend fun getTvBookmarked() = local.getTvs()
+    suspend fun saveTvBookmark(data: List<TvEntity>) = local.insertTvs(data)
+
 }

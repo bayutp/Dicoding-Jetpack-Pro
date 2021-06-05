@@ -4,6 +4,7 @@ import com.example.dicodingjetpackpro.base.BaseDataSource
 import com.example.dicodingjetpackpro.base.ResourceState
 import com.example.dicodingjetpackpro.base.ResponseWrapper
 import com.example.dicodingjetpackpro.model.entity.MovieEntity
+import com.example.dicodingjetpackpro.model.entity.TvEntity
 
 class LocalDataSource(private val localDatabase: LocalDatabase) : BaseDataSource() {
     private suspend fun <T> getResult(request: suspend () -> T): ResourceState<ResponseWrapper<T>> {
@@ -21,9 +22,11 @@ class LocalDataSource(private val localDatabase: LocalDatabase) : BaseDataSource
     suspend fun insertMovies(data: List<MovieEntity>) =
         suspendDataResult { getResult { localDatabase.movieDao().insertMovies(data) } }
 
-    suspend fun updateMovie(isBookmark: Boolean, movieId: Int) =
-        suspendDataResult { getResult {
-            localDatabase.movieDao().updateMovie(isBookmark, movieId)
-        }
-    }
+    suspend fun getTvs() =
+        suspendDataResult { getResult { localDatabase.tvDao().getTvs() } }
+
+    suspend fun insertTvs(data: List<TvEntity>) =
+        suspendDataResult { getResult { localDatabase.tvDao().insertTvs(data) } }
+
+
 }

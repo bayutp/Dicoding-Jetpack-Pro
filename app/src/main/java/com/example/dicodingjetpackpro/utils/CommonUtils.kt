@@ -39,3 +39,8 @@ fun String.formatDate(oldPattern: String, newPattern: String): String? {
     val formatter = SimpleDateFormat(newPattern, localId)
     return date?.let { formatter.format(it) }
 }
+
+fun getCurrentDate():String{
+    val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+    return sdf.format(Date())
+}

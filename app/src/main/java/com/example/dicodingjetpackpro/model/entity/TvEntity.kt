@@ -3,34 +3,31 @@ package com.example.dicodingjetpackpro.model.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.dicodingjetpackpro.model.response.movie.MovieDetailResponse
-import com.example.dicodingjetpackpro.model.response.movie.Result
+import com.example.dicodingjetpackpro.model.response.tv.TvDetailResponse
 import com.example.dicodingjetpackpro.utils.getCurrentDate
-import java.time.LocalDateTime
-import java.util.*
 
-@Entity(tableName = "tbl_movie")
-data class MovieEntity(
+@Entity(tableName = "tbl_tv")
+data class TvEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     val id: Int,
-    @ColumnInfo(name = "title")
-    val title: String,
+    @ColumnInfo(name = "name")
+    val name: String,
     @ColumnInfo(name = "poster_path")
     val posterPath: String,
-    @ColumnInfo(name = "release_date")
-    val releaseDate: String,
+    @ColumnInfo(name = "first_air_date")
+    val firstAirDate: String,
     @ColumnInfo(name = "is_bookmark")
     val isBookmark: Boolean = false,
     @ColumnInfo(name = "created_at")
     val createdAt: String
 ) {
     companion object {
-        fun mapToMovieEntity(data: MovieDetailResponse, isBookmark: Boolean) = MovieEntity(
+        fun mapToTvEntity(data: TvDetailResponse, isBookmark: Boolean) = TvEntity(
             data.id,
-            data.title,
+            data.name,
             data.posterPath,
-            data.releaseDate,
+            data.firstAirDate,
             isBookmark,
             getCurrentDate()
         )
