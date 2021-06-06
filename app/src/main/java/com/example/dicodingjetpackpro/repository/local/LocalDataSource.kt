@@ -16,8 +16,7 @@ class LocalDataSource(private val localDatabase: LocalDatabase) : BaseDataSource
         }
     }
 
-    suspend fun getMovies() =
-        suspendDataResult { getResult { localDatabase.movieDao().getMovies() } }
+    fun getMovies() = localDatabase.movieDao().getMovies()
 
     suspend fun insertMovies(data: List<MovieEntity>) =
         suspendDataResult { getResult { localDatabase.movieDao().insertMovies(data) } }
@@ -25,8 +24,7 @@ class LocalDataSource(private val localDatabase: LocalDatabase) : BaseDataSource
     suspend fun getMovie(id: Int) =
         suspendDataResult { getResult { localDatabase.movieDao().getMovie(id) } }
 
-    suspend fun getTvs() =
-        suspendDataResult { getResult { localDatabase.tvDao().getTvs() } }
+    fun getTvs() = localDatabase.tvDao().getTvs()
 
     suspend fun insertTvs(data: List<TvEntity>) =
         suspendDataResult { getResult { localDatabase.tvDao().insertTvs(data) } }

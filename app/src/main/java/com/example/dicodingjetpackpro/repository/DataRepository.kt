@@ -1,5 +1,6 @@
 package com.example.dicodingjetpackpro.repository
 
+import androidx.paging.DataSource
 import com.example.dicodingjetpackpro.model.entity.MovieEntity
 import com.example.dicodingjetpackpro.model.entity.TvEntity
 import com.example.dicodingjetpackpro.repository.local.LocalDataSource
@@ -13,11 +14,11 @@ class DataRepository(private val local: LocalDataSource, private val remote: Rem
     suspend fun getTvDetail(tvId: Int) = remote.getTvDetail(tvId)
     suspend fun getSimilarTvs(tvId: Int) = remote.getSimilarTvs(tvId)
 
-    suspend fun getMovieBookmarked() = local.getMovies()
+    fun getMovieBookmarked() : DataSource.Factory<Int, MovieEntity> = local.getMovies()
     suspend fun checkMovieBookmarked(id: Int) = local.getMovie(id)
     suspend fun checkTvBookmarked(id: Int) = local.getTv(id)
     suspend fun saveBookmark(data: List<MovieEntity>) = local.insertMovies(data)
-    suspend fun getTvBookmarked() = local.getTvs()
+    fun getTvBookmarked() : DataSource.Factory<Int, TvEntity> = local.getTvs()
     suspend fun saveTvBookmark(data: List<TvEntity>) = local.insertTvs(data)
 
 }
