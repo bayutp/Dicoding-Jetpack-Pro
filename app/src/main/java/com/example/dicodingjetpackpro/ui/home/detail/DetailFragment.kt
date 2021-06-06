@@ -113,6 +113,7 @@ class DetailFragment : BaseFragment() {
             observeGetSimilarMovieSuccess().onResult {
                 val similarAdapter = SimilarMovieAdapter<Result> { result ->
                     detailViewModel.getMovieDetail(result.id)
+                    detailViewModel.checkMovieBookmark(result.id)
                     _binding.nsParentDetail.smoothScrollTo(0, 0)
                     _binding.rvRelatedMovie.smoothScrollToPosition(0)
                 }
@@ -128,6 +129,7 @@ class DetailFragment : BaseFragment() {
             observeGetSimilarTvSuccess().onResult {
                 val similarAdapter = SimilarMovieAdapter<TvResult> { result ->
                     detailViewModel.getTvDetail(result.id)
+                    detailViewModel.checkMovieBookmark(result.id)
                     _binding.nsParentDetail.smoothScrollTo(0, 0)
                     _binding.rvRelatedMovie.smoothScrollToPosition(0)
                 }

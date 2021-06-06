@@ -14,6 +14,8 @@ class DataRepository(private val local: LocalDataSource, private val remote: Rem
     suspend fun getSimilarTvs(tvId: Int) = remote.getSimilarTvs(tvId)
 
     suspend fun getMovieBookmarked() = local.getMovies()
+    suspend fun checkMovieBookmarked(id: Int) = local.getMovie(id)
+    suspend fun checkTvBookmarked(id: Int) = local.getTv(id)
     suspend fun saveBookmark(data: List<MovieEntity>) = local.insertMovies(data)
     suspend fun getTvBookmarked() = local.getTvs()
     suspend fun saveTvBookmark(data: List<TvEntity>) = local.insertTvs(data)

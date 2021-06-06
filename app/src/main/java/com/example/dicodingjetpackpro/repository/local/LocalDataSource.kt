@@ -22,11 +22,14 @@ class LocalDataSource(private val localDatabase: LocalDatabase) : BaseDataSource
     suspend fun insertMovies(data: List<MovieEntity>) =
         suspendDataResult { getResult { localDatabase.movieDao().insertMovies(data) } }
 
+    suspend fun getMovie(id: Int) =
+        suspendDataResult { getResult { localDatabase.movieDao().getMovie(id) } }
+
     suspend fun getTvs() =
         suspendDataResult { getResult { localDatabase.tvDao().getTvs() } }
 
     suspend fun insertTvs(data: List<TvEntity>) =
         suspendDataResult { getResult { localDatabase.tvDao().insertTvs(data) } }
 
-
+    suspend fun getTv(id: Int) = suspendDataResult { getResult { localDatabase.tvDao().getTv(id) } }
 }

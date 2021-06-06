@@ -117,9 +117,9 @@ class DetailViewModel(private val repository: DataRepository) : BaseViewModel() 
 
     fun checkMovieBookmark(id: Int) {
         viewModelScope.launch {
-            when (val state = repository.getMovieBookmarked()) {
+            when (val state = repository.checkMovieBookmarked(id)) {
                 is ResourceState.Success -> {
-                    val result = state.result.data?.find { it.id == id }
+                    val result = state.result.data
                     onCheckBookmarkSuccess.postValue(result != null)
                 }
                 is ResourceState.Error -> errorResponse.postValue(state.error.errorData)
@@ -139,9 +139,9 @@ class DetailViewModel(private val repository: DataRepository) : BaseViewModel() 
 
     fun checkTvBookmark(id: Int) {
         viewModelScope.launch {
-            when (val state = repository.getTvBookmarked()) {
+            when (val state = repository.checkTvBookmarked(id)) {
                 is ResourceState.Success -> {
-                    val result = state.result.data?.find { it.id == id }
+                    val result = state.result.data
                     onCheckBookmarkSuccess.postValue(result != null)
                 }
                 is ResourceState.Error -> errorResponse.postValue(state.error.errorData)

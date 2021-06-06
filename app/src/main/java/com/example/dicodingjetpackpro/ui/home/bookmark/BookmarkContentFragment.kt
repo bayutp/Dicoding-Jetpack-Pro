@@ -1,6 +1,7 @@
 package com.example.dicodingjetpackpro.ui.home.bookmark
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.dicodingjetpackpro.R
 import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentMovieBinding
-import com.example.dicodingjetpackpro.model.response.movie.Result
-import com.example.dicodingjetpackpro.model.response.tv.TvResult
-import com.example.dicodingjetpackpro.ui.home.MovieAdapter
 import com.example.dicodingjetpackpro.utils.showMsg
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,8 +21,8 @@ class BookmarkContentFragment : BaseFragment() {
     private var param1: String? = null
     private lateinit var _binding: FragmentMovieBinding
     private val viewModel: BookmarkViewModel by viewModel()
-    private lateinit var movieAdapter: MovieAdapter<Result>
-    private lateinit var tvAdapter: MovieAdapter<TvResult>
+    private lateinit var movieAdapter: BookmarkAdapter
+    private lateinit var tvAdapter: BookmarkTvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +48,7 @@ class BookmarkContentFragment : BaseFragment() {
 
         when (param1) {
             "movie" -> {
-                movieAdapter = MovieAdapter {
+                movieAdapter = BookmarkAdapter {
                     findNavController().navigate(
                         R.id.action_menu_bookmark_to_detailFragment,
                         args = bundleOf("movie_id" to it.id),
@@ -65,7 +63,7 @@ class BookmarkContentFragment : BaseFragment() {
                 viewModel.getMovies()
             }
             "tv" -> {
-                tvAdapter = MovieAdapter {
+                tvAdapter = BookmarkTvAdapter {
                     findNavController().navigate(
                         R.id.action_menu_bookmark_to_detailFragment,
                         args = bundleOf("tv_id" to it.id),
@@ -86,31 +84,16 @@ class BookmarkContentFragment : BaseFragment() {
     override fun observeData() {
         with(viewModel) {
             observeGetMoviesSuccess().onResult { data ->
-                movieAdapter.setData(
-                    data.map {
-                        Result(
-                            id = it.id,
-                            posterPath = it.posterPath,
-                            releaseDate = it.releaseDate,
-                            title = it.title
-                        )
-                    }
-                )
+                movieAdapter.submitList(data)
+                Log.d("TAG", "observeData: $data")
             }
             observeGetTvSuccess().onResult { data ->
-                tvAdapter.setData(
-                    data.map {
-                        TvResult(
-                            firstAirDate = it.firstAirDate,
-                            id = it.id,
-                            name = it.name,
-                            posterPath = it.posterPath
-                        )
-                    }, false
-                )
+                tvAdapter.submitList(data)
+                Log.d("TAG", "observeData: $data")
             }
             observeError().onResult {
                 requireContext().showMsg(it.msg ?: "Error!, something wrong")
+                Log.d("TAG", "observeData: $it")
             }
         }
     }
