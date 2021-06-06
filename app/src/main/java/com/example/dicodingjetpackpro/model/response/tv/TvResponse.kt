@@ -17,7 +17,7 @@ data class TvResult(
     @SerializedName("backdrop_path")
     val backdropPath: String? = null,
     @SerializedName("first_air_date")
-    val firstAirDate: String,
+    val firstAirDate: String? = "",
     @SerializedName("genre_ids")
     val genreIds: List<Int>? = null,
     @SerializedName("id")

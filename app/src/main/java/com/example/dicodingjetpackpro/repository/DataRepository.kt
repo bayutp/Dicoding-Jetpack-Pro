@@ -13,6 +13,8 @@ class DataRepository(private val local: LocalDataSource, private val remote: Rem
     suspend fun getSimilarMovies(movieId: Int) = remote.getSimilarMovies(movieId)
     suspend fun getTvDetail(tvId: Int) = remote.getTvDetail(tvId)
     suspend fun getSimilarTvs(tvId: Int) = remote.getSimilarTvs(tvId)
+    suspend fun searchMovies(query: String) = remote.searchMovies(query)
+    suspend fun searchTvs(query: String) = remote.searchTvs(query)
 
     fun getMovieBookmarked() : DataSource.Factory<Int, MovieEntity> = local.getMovies()
     suspend fun checkMovieBookmarked(id: Int) = local.getMovie(id)

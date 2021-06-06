@@ -84,12 +84,12 @@ class SimilarMovieAdapter<T>(private val listener: (T) -> Unit) :
             when (data) {
                 is Result -> {
                     with(binding) {
-                        tvTitleMovie.text = String.format(
+                        tvTitleMovie.text = if (data.releaseDate.isNullOrBlank()) data.title else String.format(
                             "%s (%s)",
                             data.title,
                             data.releaseDate.formatDate("yyyy-MM-dd", "yyyy")
                         )
-                        ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
+                        ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.backdropPath}")
                         tvRating.text = data.voteAverage.toString()
 
                         itemView.setOnClickListener { listener(data) }
@@ -97,7 +97,7 @@ class SimilarMovieAdapter<T>(private val listener: (T) -> Unit) :
                 }
                 is TvResult -> {
                     with(binding) {
-                        tvTitleMovie.text = String.format(
+                        tvTitleMovie.text = if (data.firstAirDate.isNullOrBlank()) data.name else String.format(
                             "%s (%s)",
                             data.name,
                             data.firstAirDate.formatDate("yyyy-MM-dd", "yyyy")

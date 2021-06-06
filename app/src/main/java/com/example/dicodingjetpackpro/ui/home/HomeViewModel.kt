@@ -54,4 +54,43 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
             }
         }
     }
+
+    fun searchTvs(query: String) {
+        isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val state = repository.searchTvs(query)) {
+                is ResourceState.Success -> {
+                    isLoading.postValue(false)
+                    state.result.data?.let { result ->
+                        onGetDiscoverTvsSuccess.postValue(result)
+                    }
+                }
+                is ResourceState.Error -> {
+                    isLoading.postValue(false)
+                    errorResponse.postValue(state.error.errorData)
+                }
+                else -> isLoading.postValue(true)
+            }
+        }
+    }
+
+    fun searchMovies(query: String) {
+        isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val state = repository.searchMovies(query)) {
+                is ResourceState.Success -> {
+                    isLoading.postValue(false)
+                    state.result.data?.let { result ->
+                        onGetDiscoverMoviesSuccess.postValue(result)
+                    }
+                }
+                is ResourceState.Error -> {
+                    isLoading.postValue(false)
+                    errorResponse.postValue(state.error.errorData)
+                }
+                else -> isLoading.postValue(true)
+            }
+        }
+    }
+
 }

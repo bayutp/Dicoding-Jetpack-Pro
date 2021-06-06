@@ -29,17 +29,28 @@ class RemoteDataSource(private val apiService: ApiService) : BaseDataSource() {
         }
     }
 
-    suspend fun getDiscoverMovies() = suspendDataResult { getResult { apiService.getDiscoverMovies() } }
+    suspend fun getDiscoverMovies() =
+        suspendDataResult { getResult { apiService.getDiscoverMovies() } }
 
     suspend fun getDiscoverTvs() = suspendDataResult { getResult { apiService.getDiscoverTvs() } }
 
-    suspend fun getMovieDetail(movieId: Int) = suspendDataResult { getResult { apiService.getMovieDetail(movieId) } }
+    suspend fun getMovieDetail(movieId: Int) =
+        suspendDataResult { getResult { apiService.getMovieDetail(movieId) } }
 
-    suspend fun getSimilarMovies(movieId: Int) = suspendDataResult { getResult { apiService.getSimilarMovies(movieId) } }
+    suspend fun getSimilarMovies(movieId: Int) =
+        suspendDataResult { getResult { apiService.getSimilarMovies(movieId) } }
 
-    suspend fun getTvDetail(tvId: Int) = suspendDataResult { getResult { apiService.getTvDetail(tvId) } }
+    suspend fun getTvDetail(tvId: Int) =
+        suspendDataResult { getResult { apiService.getTvDetail(tvId) } }
 
-    suspend fun getSimilarTvs(tvId: Int) = suspendDataResult { getResult { apiService.getSimilarTvs(tvId) } }
+    suspend fun getSimilarTvs(tvId: Int) =
+        suspendDataResult { getResult { apiService.getSimilarTvs(tvId) } }
+
+    suspend fun searchMovies(query: String) =
+        suspendDataResult { getResult { apiService.searchMovies(query = query) } }
+
+    suspend fun searchTvs(query: String) =
+        suspendDataResult { getResult { apiService.searchTvs(query = query) } }
 
     companion object {
         const val NO_INTERNET = "No internet connection!"

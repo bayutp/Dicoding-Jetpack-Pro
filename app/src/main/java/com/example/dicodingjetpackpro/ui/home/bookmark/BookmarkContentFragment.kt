@@ -15,6 +15,7 @@ import com.example.dicodingjetpackpro.base.BaseFragment
 import com.example.dicodingjetpackpro.databinding.FragmentMovieBinding
 import com.example.dicodingjetpackpro.model.entity.MovieEntity
 import com.example.dicodingjetpackpro.model.entity.TvEntity
+import com.example.dicodingjetpackpro.utils.gone
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val ARG_PARAM1 = "param1"
@@ -36,6 +37,10 @@ class BookmarkContentFragment : BaseFragment() {
     }
 
     override fun onViewReady(savedInstanceState: Bundle?) {
+        with(_binding){
+            tvTitle.gone()
+            svMovie.gone()
+        }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
         }

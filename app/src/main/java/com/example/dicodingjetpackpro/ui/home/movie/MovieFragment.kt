@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -48,6 +49,17 @@ class MovieFragment : BaseFragment() {
                 )
                 adapter = movieAdapter
             }
+
+            svMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    if (p0 != null && p0.isNotEmpty()) homeViewModel.searchMovies(p0)
+                    return true
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean = false
+
+            })
         }
         homeViewModel.getDiscoverMovies()
         (activity as MainActivity).hideBottomNavigation(false)

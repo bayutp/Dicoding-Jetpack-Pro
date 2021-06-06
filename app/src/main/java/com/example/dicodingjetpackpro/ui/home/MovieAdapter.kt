@@ -75,7 +75,7 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
         /*val anim = if (position > lastPosition)
             AnimationUtils.loadAnimation(context, R.anim.rv_anim_up_to_down)
         else AnimationUtils.loadAnimation(context, R.anim.rv_anim_down_to_up)*/
-        if (position > lastPosition){
+        if (position > lastPosition) {
             val anim = AnimationUtils.loadAnimation(context, R.anim.rv_anim_up_to_down)
             viewToAnimate.startAnimation(anim)
             lastPosition = position
@@ -88,7 +88,11 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
             when (data) {
                 is Result -> {
                     with(binding) {
-                        tvTitleMovie.text = String.format("%s (%s)", data.title, data.releaseDate.formatDate("yyyy-MM-dd", "yyyy"))
+                        tvTitleMovie.text = if (data.releaseDate.isNullOrBlank()) data.title else String.format(
+                            "%s (%s)",
+                            data.title,
+                            data.releaseDate.formatDate("yyyy-MM-dd", "yyyy")
+                        )
                         ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
                         tvRating.text = data.voteAverage.toString()
 
@@ -97,7 +101,11 @@ class MovieAdapter<T>(private val listener: (T) -> Unit) :
                 }
                 is TvResult -> {
                     with(binding) {
-                        tvTitleMovie.text = String.format("%s (%s)", data.name, data.firstAirDate.formatDate("yyyy-MM-dd", "yyyy"))
+                        tvTitleMovie.text = if (data.firstAirDate.isNullOrBlank()) data.name else String.format(
+                            "%s (%s)",
+                            data.name,
+                            data.firstAirDate.formatDate("yyyy-MM-dd", "yyyy")
+                        )
                         ivMovie.loadImage("${BuildConfig.IMAGE_BASE_URL}${data.posterPath}")
                         tvRating.text = data.voteAverage.toString()
 
