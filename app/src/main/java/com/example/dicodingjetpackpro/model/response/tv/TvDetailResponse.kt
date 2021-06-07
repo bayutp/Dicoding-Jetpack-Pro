@@ -34,7 +34,7 @@ data class TvDetailResponse(
     @SerializedName("networks")
     val networks: List<Network>,
     @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: Any,
+    val nextEpisodeToAir: String?,
     @SerializedName("number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")
