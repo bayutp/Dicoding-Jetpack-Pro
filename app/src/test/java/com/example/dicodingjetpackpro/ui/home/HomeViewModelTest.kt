@@ -10,6 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
@@ -81,6 +82,20 @@ class HomeViewModelTest : KoinTest {
     }
 
     @Test
+    fun searchTvsEmpty() {
+        val query = "warkop reborn"
+        runBlocking {
+            val service = declareMock<DataRepository> {
+                runBlocking { given(searchTvs(query)).willReturn(null) }
+            }
+            homeViewModel.searchTvs(query)
+            val result = homeViewModel.observeDiscoverTvs().value
+            Mockito.verify(service).searchTvs(query)
+            assertNull(result)
+        }
+    }
+
+    @Test
     fun searchMovies() {
         val query = "spiderman"
         runBlocking {
@@ -93,4 +108,20 @@ class HomeViewModelTest : KoinTest {
             assertNotNull(result)
         }
     }
+
+    @Test
+    fun searchMoviesEmpty() {
+        val query = "mbak kunti"
+        runBlocking {
+            val service = declareMock<DataRepository> {
+                runBlocking { given(searchMovies(query)).willReturn(null) }
+            }
+            homeViewModel.searchMovies(query)
+            val result = homeViewModel.observeDiscoverMovies().value
+            Mockito.verify(service).searchMovies(query)
+            assertNull(result)
+        }
+    }
+
+
 }
