@@ -19,6 +19,7 @@ import com.example.dicodingjetpackpro.ui.home.MovieAdapter
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
 import com.example.dicodingjetpackpro.utils.visible
+import org.koin.androidx.scope.bindScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TvFragment : BaseFragment() {
@@ -76,6 +77,12 @@ class TvFragment : BaseFragment() {
         with(homeViewModel) {
             observeDiscoverTvs().onResult {
                 movieAdapter.setData(it.results, false)
+                _binding.apply {
+                    svTv.setQuery("", false)
+                    svTv.clearFocus()
+                    rvTv.visible()
+                    emptyAnimation.gone()
+                }
             }
 
             observeError().onResult {
@@ -84,6 +91,19 @@ class TvFragment : BaseFragment() {
 
             observeLoading().onResult { isLoading ->
                 if (isLoading) _binding.tvProgress.visible() else _binding.tvProgress.gone()
+            }
+            observeEmptyData().onResult {
+                if (it) {
+                    _binding.apply {
+                        emptyAnimation.visible()
+                        rvTv.gone()
+                    }
+                } else {
+                    _binding.apply {
+                        emptyAnimation.gone()
+                        rvTv.visible()
+                    }
+                }
             }
         }
     }

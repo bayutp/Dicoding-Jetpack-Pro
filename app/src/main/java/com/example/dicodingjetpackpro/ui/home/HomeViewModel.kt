@@ -62,7 +62,11 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 is ResourceState.Success -> {
                     isLoading.postValue(false)
                     state.result.data?.let { result ->
-                        onGetDiscoverTvsSuccess.postValue(result)
+                        if (result.results.isEmpty()) isEmptyData.postValue(true)
+                        else {
+                            onGetDiscoverTvsSuccess.postValue(result)
+                            isEmptyData.postValue(false)
+                        }
                     }
                 }
                 is ResourceState.Error -> {
@@ -81,7 +85,11 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 is ResourceState.Success -> {
                     isLoading.postValue(false)
                     state.result.data?.let { result ->
-                        onGetDiscoverMoviesSuccess.postValue(result)
+                        if (result.results.isEmpty()) isEmptyData.postValue(true)
+                        else {
+                            onGetDiscoverMoviesSuccess.postValue(result)
+                            isEmptyData.postValue(false)
+                        }
                     }
                 }
                 is ResourceState.Error -> {

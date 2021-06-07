@@ -69,6 +69,12 @@ class MovieFragment : BaseFragment() {
         with(homeViewModel) {
             observeDiscoverMovies().onResult {
                 movieAdapter.setData(it.results)
+                _binding.apply {
+                    svMovie.setQuery("", false)
+                    svMovie.clearFocus()
+                    svMovie.visible()
+                    emptyAnimation.gone()
+                }
             }
             observeError().onResult {
                 requireContext().showMsg(it.msg ?: "Error, failed load content")
@@ -76,6 +82,19 @@ class MovieFragment : BaseFragment() {
             observeLoading().onResult { isLoading ->
                 if (isLoading) _binding.homeProgress.visible()
                 else _binding.homeProgress.gone()
+            }
+            observeEmptyData().onResult {
+                if (it) {
+                    _binding.apply {
+                        emptyAnimation.visible()
+                        rvMovie.gone()
+                    }
+                } else {
+                    _binding.apply {
+                        emptyAnimation.gone()
+                        rvMovie.visible()
+                    }
+                }
             }
         }
     }
