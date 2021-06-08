@@ -104,6 +104,7 @@ class TvFragment : BaseFragment() {
                         rvTv.visible()
                     }
                 }
+                _binding.svTv.clearFocus()
             }
         }
     }

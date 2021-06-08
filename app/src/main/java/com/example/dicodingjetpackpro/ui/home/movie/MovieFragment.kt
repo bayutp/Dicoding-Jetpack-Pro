@@ -72,7 +72,7 @@ class MovieFragment : BaseFragment() {
                 _binding.apply {
                     svMovie.setQuery("", false)
                     svMovie.clearFocus()
-                    svMovie.visible()
+                    rvMovie.visible()
                     emptyAnimation.gone()
                 }
             }
@@ -95,6 +95,8 @@ class MovieFragment : BaseFragment() {
                         rvMovie.visible()
                     }
                 }
+
+                _binding.svMovie.clearFocus()
             }
         }
     }
