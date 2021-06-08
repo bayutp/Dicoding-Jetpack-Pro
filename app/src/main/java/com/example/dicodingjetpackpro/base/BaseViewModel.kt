@@ -9,9 +9,11 @@ abstract class BaseViewModel : ViewModel() {
     protected val isLoading = MutableLiveData<Boolean>()
     protected val isFetching = MutableLiveData<Boolean>()
     protected val isEmptyData = MutableLiveData<Boolean>()
+    protected val noInternet = MutableLiveData<Boolean>()
 
     fun observeError(): LiveData<ErrorResponse> = errorResponse
     fun observeLoading(): LiveData<Boolean> = isLoading
     fun observeFetching(): LiveData<Boolean> = isFetching
     fun observeEmptyData(): LiveData<Boolean> = isEmptyData
+    fun observeNoConnection() : LiveData<Boolean> = noInternet
 }

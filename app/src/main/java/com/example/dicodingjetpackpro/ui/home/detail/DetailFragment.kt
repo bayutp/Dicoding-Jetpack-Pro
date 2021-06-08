@@ -1,5 +1,6 @@
 package com.example.dicodingjetpackpro.ui.home.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.example.dicodingjetpackpro.model.entity.TvEntity
 import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.model.response.tv.TvResult
 import com.example.dicodingjetpackpro.ui.home.MainActivity
+import com.example.dicodingjetpackpro.ui.nointernet.NoInternetActivity
 import com.example.dicodingjetpackpro.utils.*
 import com.google.android.material.chip.Chip
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,6 +38,15 @@ class DetailFragment : BaseFragment() {
         movieId = requireArguments().getInt("movie_id")
         tvId = requireArguments().getInt("tv_id")
 
+        getData()
+
+        (activity as MainActivity).hideBottomNavigation()
+        _binding.fabBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun getData() {
         movieId?.let { id ->
             if (id != 0) {
                 detailViewModel.apply {
@@ -57,12 +68,6 @@ class DetailFragment : BaseFragment() {
                 }
 
             }
-        }
-
-        (activity as MainActivity).hideBottomNavigation()
-        hideToolbar(true)
-        _binding.fabBack.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 
@@ -206,7 +211,11 @@ class DetailFragment : BaseFragment() {
                     _binding.progressDetail.gone()
                 }
             }
+            observeNoConnection().onResult {
+                startActivity(Intent(requireActivity(), NoInternetActivity::class.java))
+            }
         }
+
     }
 
     private fun changeBookmarkIcon(it: Boolean) {
@@ -228,6 +237,11 @@ class DetailFragment : BaseFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return _binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
 }

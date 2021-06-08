@@ -8,6 +8,7 @@ import com.example.dicodingjetpackpro.base.ResourceState
 import com.example.dicodingjetpackpro.model.response.movie.MovieResponse
 import com.example.dicodingjetpackpro.model.response.tv.TvResponse
 import com.example.dicodingjetpackpro.repository.DataRepository
+import com.example.dicodingjetpackpro.repository.remote.RemoteDataSource
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
@@ -29,7 +30,10 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
-                    errorResponse.postValue(state.error.errorData)
+                    if (state.error.errorData?.msg?.contains(RemoteDataSource.NO_INTERNET) == true) noInternet.postValue(
+                        true
+                    )
+                    else errorResponse.postValue(state.error.errorData)
                 }
                 else -> isLoading.postValue(true)
             }
@@ -48,7 +52,10 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
-                    errorResponse.postValue(state.error.errorData)
+                    if (state.error.errorData?.msg?.contains(RemoteDataSource.NO_INTERNET) == true) noInternet.postValue(
+                        true
+                    )
+                    else errorResponse.postValue(state.error.errorData)
                 }
                 else -> isLoading.postValue(true)
             }
@@ -68,7 +75,10 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
-                    errorResponse.postValue(state.error.errorData)
+                    if (state.error.errorData?.msg?.contains(RemoteDataSource.NO_INTERNET) == true) noInternet.postValue(
+                        true
+                    )
+                    else errorResponse.postValue(state.error.errorData)
                 }
                 else -> isLoading.postValue(true)
             }
@@ -88,7 +98,10 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
-                    errorResponse.postValue(state.error.errorData)
+                    if (state.error.errorData?.msg?.contains(RemoteDataSource.NO_INTERNET) == true) noInternet.postValue(
+                        true
+                    )
+                    else errorResponse.postValue(state.error.errorData)
                 }
                 else -> isLoading.postValue(true)
             }

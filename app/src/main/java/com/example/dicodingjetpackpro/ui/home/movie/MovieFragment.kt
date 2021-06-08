@@ -1,5 +1,6 @@
 package com.example.dicodingjetpackpro.ui.home.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.dicodingjetpackpro.model.response.movie.Result
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
 import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.ui.home.MovieAdapter
+import com.example.dicodingjetpackpro.ui.nointernet.NoInternetActivity
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
 import com.example.dicodingjetpackpro.utils.visible
@@ -98,7 +100,11 @@ class MovieFragment : BaseFragment() {
 
                 _binding.svMovie.clearFocus()
             }
+            observeNoConnection().onResult {
+                startActivity(Intent(requireActivity(), NoInternetActivity::class.java))
+            }
         }
+
     }
 
     override fun onCreateView(
@@ -107,6 +113,11 @@ class MovieFragment : BaseFragment() {
     ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
         return _binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getDiscoverMovies()
     }
 
 }

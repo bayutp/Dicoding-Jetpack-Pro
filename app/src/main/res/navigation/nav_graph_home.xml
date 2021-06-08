@@ -54,6 +54,5 @@
         android:id="@+id/detailFragment"
         android:name="com.example.dicodingjetpackpro.ui.home.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
-    </fragment>
+        tools:layout="@layout/fragment_detail" />
 </navigation>

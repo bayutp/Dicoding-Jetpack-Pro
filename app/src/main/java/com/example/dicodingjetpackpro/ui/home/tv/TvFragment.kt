@@ -1,5 +1,6 @@
 package com.example.dicodingjetpackpro.ui.home.tv
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,10 @@ import com.example.dicodingjetpackpro.model.response.tv.TvResult
 import com.example.dicodingjetpackpro.ui.home.HomeViewModel
 import com.example.dicodingjetpackpro.ui.home.MainActivity
 import com.example.dicodingjetpackpro.ui.home.MovieAdapter
+import com.example.dicodingjetpackpro.ui.nointernet.NoInternetActivity
 import com.example.dicodingjetpackpro.utils.gone
 import com.example.dicodingjetpackpro.utils.showMsg
 import com.example.dicodingjetpackpro.utils.visible
-import org.koin.androidx.scope.bindScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TvFragment : BaseFragment() {
@@ -106,6 +107,15 @@ class TvFragment : BaseFragment() {
                 }
                 _binding.svTv.clearFocus()
             }
+            observeNoConnection().onResult {
+                startActivity(Intent(requireActivity(), NoInternetActivity::class.java))
+            }
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getDiscoverTvs()
     }
 }
