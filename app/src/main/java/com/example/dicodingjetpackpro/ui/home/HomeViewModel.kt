@@ -9,6 +9,7 @@ import com.example.dicodingjetpackpro.model.response.movie.MovieResponse
 import com.example.dicodingjetpackpro.model.response.tv.TvResponse
 import com.example.dicodingjetpackpro.repository.DataRepository
 import com.example.dicodingjetpackpro.repository.remote.RemoteDataSource
+import com.example.dicodingjetpackpro.utils.IdlingResourceUtils
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
@@ -19,6 +20,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
     fun observeDiscoverTvs(): LiveData<TvResponse> = onGetDiscoverTvsSuccess
 
     fun getDiscoverMovies() {
+        IdlingResourceUtils.increment()
         isLoading.postValue(true)
         viewModelScope.launch {
             when (val state = repository.getDiscoverMovies()) {
@@ -27,6 +29,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                     state.result.data?.let { result ->
                         onGetDiscoverMoviesSuccess.postValue(result)
                     }
+                    IdlingResourceUtils.decrement()
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
@@ -34,6 +37,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         true
                     )
                     else errorResponse.postValue(state.error.errorData)
+                    IdlingResourceUtils.decrement()
                 }
                 else -> isLoading.postValue(true)
             }
@@ -41,6 +45,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
     }
 
     fun getDiscoverTvs() {
+        IdlingResourceUtils.increment()
         isLoading.postValue(true)
         viewModelScope.launch {
             when (val state = repository.getDiscoverTvs()) {
@@ -49,6 +54,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                     state.result.data?.let { result ->
                         onGetDiscoverTvsSuccess.postValue(result)
                     }
+                    IdlingResourceUtils.decrement()
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
@@ -56,6 +62,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         true
                     )
                     else errorResponse.postValue(state.error.errorData)
+                    IdlingResourceUtils.decrement()
                 }
                 else -> isLoading.postValue(true)
             }
@@ -63,6 +70,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
     }
 
     fun searchTvs(query: String) {
+        IdlingResourceUtils.increment()
         isLoading.postValue(true)
         viewModelScope.launch {
             when (val state = repository.searchTvs(query)) {
@@ -72,6 +80,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         onGetDiscoverTvsSuccess.postValue(result)
                         isEmptyData.postValue(result.results.isEmpty())
                     }
+                    IdlingResourceUtils.decrement()
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
@@ -79,6 +88,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         true
                     )
                     else errorResponse.postValue(state.error.errorData)
+                    IdlingResourceUtils.decrement()
                 }
                 else -> isLoading.postValue(true)
             }
@@ -86,6 +96,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
     }
 
     fun searchMovies(query: String) {
+        IdlingResourceUtils.increment()
         isLoading.postValue(true)
         viewModelScope.launch {
             when (val state = repository.searchMovies(query)) {
@@ -95,6 +106,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         onGetDiscoverMoviesSuccess.postValue(result)
                         isEmptyData.postValue(result.results.isEmpty())
                     }
+                    IdlingResourceUtils.decrement()
                 }
                 is ResourceState.Error -> {
                     isLoading.postValue(false)
@@ -102,6 +114,7 @@ class HomeViewModel(private val repository: DataRepository) : BaseViewModel() {
                         true
                     )
                     else errorResponse.postValue(state.error.errorData)
+                    IdlingResourceUtils.decrement()
                 }
                 else -> isLoading.postValue(true)
             }
