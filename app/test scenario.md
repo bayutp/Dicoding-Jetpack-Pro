@@ -1,0 +1,138 @@
+Dicoding Jetpack Pro - Final project
+
+## Unit test scenario
+
+- Home view model
+  - `getDiscoverMovies` = memastikan data discover movie tidak null 
+  - `getDiscoverTvs` = memastikan data discover tv tidak null
+  - `searchMovie` = memastikan data hasil pencarian movie tidak null
+  - `searchTv` = memastikan data hasil pencarian tv show tidak null
+  - `searchMovieEmpty` = memastikan data hasil pencarian movie null / empty
+  - `searchTvEmpty` = memastikan data hasil pencarian tv show null / empty
+- Detail view model test
+  - `getMovieDetail` = memastikan data detail movie tidak null
+  - `getSimilarMovie` = memastikdan data detail similar movie tidak null
+  - `getTvDetail` = memastikda data detail tv show tidak null
+  - `getSimilarTv` = memastikan data detail similar tv show tidak null
+  - `addMovieToBookmark` = memastikan penambahan data movie ke local database berhasil
+  - `addTvToBookmark` = memastikan penambahan data tv show ke local database berhasil
+  - `checkMovieBookmark` = memastikan status bookmark pada movie dengan id tertentu
+  - `checkTvBookmark` = memastikan status bookmark pada tv show dengan id tertentu
+- Bookmark view model test
+  - `getMovies` = memastikan data bookmark movies tidak null
+  - `getTvs` = memastikan data bookmark tv shows tidak null
+
+## Instrumentation test scenario
+
+- Main activity test
+  - `moveToOtherMenu`
+    - Memastikan bottom navigation sudah ditampilkan
+    - Memberikan action click pada menu home
+    - Memberikan action click pada menu tv
+    - Memberikan action clikc pada menu bookmark
+- Movie fragment test
+  - `loadDiscoverMovies`
+    - Aplikasi terbuka dan menampilkan halaman utama
+    - Memastikan recylerview (rv_movie) sudah ditampilkan
+    - Memberikan action scroll pada rv_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_movie sampai posisi item ke-0
+    - Memberikan action click pada posisi item ke-0
+    - Memberikan action swipe up pada halaman detail
+    - Memastikan rv_similar_movie sudah ditampilkan
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-0
+    - Memberikan action click pada item ke-0
+    - Memastikan tombol navigasi back sudah ditampilkan
+    - Memberikan action click pada tombol navigasi back
+  - `searchMovies`
+    - Aplikasi terbuka dan menampilkan halaman utama
+    - Memastikan search view (sv_movie) sudah ditampilkan
+    - Memberikan action type text (menambahkan query) "spiderman"
+    - Memastikan recyclerview (rv_movie) sudah ditampilkan
+    - Memberikan action click pada posisi item ke-0
+    - Memberikan action swipe up pada halaman detail
+    - Memastikan rv_similar_movie sudah ditampilkan
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-0
+    - Memberikan action click pada item ke-0
+    - Memastikan tombol navigasi back sudah ditampilkan
+    - Memberikan action click pada tombol navigasi back
+- Tv fragment test
+  - `loadDiscoverTvs`
+    - Aplikasi terbuka dan menampilkan halaman utama
+    - Memastikan bottom navigation sudah ditampilkan
+    - Melakukan action click pada menu_tv
+    - Memastikan recylerview (rv_tv) sudah ditampilkan
+    - Memberikan action scroll pada rv_tv sampai posisi item ke-10
+    - Memberikan action scroll pada rv_tv sampai posisi item ke-0
+    - Memberikan action click pada posisi item ke-0
+    - Memberikan action swipe up pada halaman detail
+    - Memastikan rv_similar_movie sudah ditampilkan
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-0
+    - Memberikan action click pada item ke-0
+    - Memastikan tombol navigasi back sudah ditampilkan
+    - Memberikan action click pada tombol navigasi back
+  - `searchTvs`
+    - Aplikasi terbuka dan menampilkan halaman utama
+    - Memastikan bottom navigation sudah ditampilkan
+    - Melakukan action click pada menu_tv
+    - Memastikan search view (sv_tv) sudah ditampilkan
+    - Memberikan action type text (menambahkan query) "falcon"
+    - Memastikan recyclerview (rv_tv) sudah ditampilkan
+    - Memberikan action click pada posisi item ke-0
+    - Memberikan action swipe up pada halaman detail
+    - Memastikan rv_similar_movie sudah ditampilkan
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_similar_movie sampai posisi item ke-0
+    - Memberikan action click pada item ke-0
+    - Memastikan tombol navigasi back sudah ditampilkan
+    - Memberikan action click pada tombol navigasi back
+- Content bookmark fragment
+  - `Add & remove movie bookmark`
+    - Aplikasi terbuka dan menampilkan beberapa view 
+    - Memastikan bottom navigation sudah ditampilkan
+    - Memberikan action click pada menu bookmark
+    - Memberikan action swipe left & right
+    - Memberikan action click pada menu home / movie
+    - Memastikan recylerview (rv_movie) sudah ditampilkan
+    - Memberikan action scroll pada rv_movie sampai posisi item ke-10
+    - Memberikan action scroll pada rv_movie sampai posisi item ke-0
+    - Memberikan action click pada posisi item ke-0
+    - Memastikan button bookmark (iv_bookmark) sudah ditampilkan
+    - Memberikan action click pada button bookmark
+    - Memberikan action swipe up & down
+    - Memastikan tombol navigasi back sudah ditampilkan 
+    - Memberikan action click pada tombol back navigasi 
+    - Memastikan bottom navigasi sudah ditampilkan
+    - Memberikan action click pada menu bookmark
+    - Memastikan recyclerview sudah ditampilkan
+    - Memberikan action click pada posisi item ke-0
+    - Memastikan button bookmark (iv_bookmark) sudah ditampilkan
+    - Memberikan action click pada button bookmark
+    - Memastikan tombol navigasi back sudah ditampilkan 
+    - Memberikan action click pada tombol back navigasi 
+  - `Add & remove tv show bookmark`
+    - Aplikasi terbuka dan menampilkan beberapa view 
+    - Memastikan bottom navigation sudah ditampilkan
+    - Memberikan action click pada menu bookmark
+    - Memberikan action swipe left & right
+    - Memberikan action click pada menu tv
+    - Memastikan recylerview (rv_tv) sudah ditampilkan
+    - Memberikan action scroll pada rv_tv sampai posisi item ke-10
+    - Memberikan action scroll pada rv_tv sampai posisi item ke-0
+    - Memberikan action click pada posisi item ke-0
+    - Memastikan button bookmark (iv_bookmark) sudah ditampilkan
+    - Memberikan action click pada button bookmark
+    - Memberikan action swipe up & down
+    - Memastikan tombol navigasi back sudah ditampilkan 
+    - Memberikan action click pada tombol back navigasi 
+    - Memastikan bottom navigasi sudah ditampilkan
+    - Memberikan action click pada menu bookmark
+    - Memberikan action swipe left
+    - Memastikan recyclerview sudah ditampilkan
+    - Memberikan action click pada posisi item ke-0
+    - Memastikan button bookmark (iv_bookmark) sudah ditampilkan
+    - Memberikan action click pada button bookmark
+    - Memastikan tombol navigasi back sudah ditampilkan 
+    - Memberikan action click pada tombol back navigasi 
