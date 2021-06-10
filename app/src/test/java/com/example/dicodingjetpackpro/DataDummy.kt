@@ -133,7 +133,7 @@ object DataDummy {
 
     fun addToMovieBookmark(): ResourceState<ResponseWrapper<Unit>> {
         return ResourceState.Success(
-            ResponseWrapper(null, null, any(), null)
+            ResponseWrapper(null, null, Unit, null)
         )
     }
 
